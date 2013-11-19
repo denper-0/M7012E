@@ -11,6 +11,5 @@ public:
 	void set_Event();
 	bool start;
 	void tomte();
-	int printText(string); 
 };
 

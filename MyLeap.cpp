@@ -65,10 +65,10 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 
 				if(gesture.state() == Leap::Gesture::STATE_STOP) {
 					if(swipe.direction().x > 0) {
-						std::cout << "ROTATE_RIGHT";
+						//std::cout << "ROTATE_RIGHT";
 						return ROTATE_RIGHT;
 					} else {
-						std::cout << "ROTATE_LEFT";
+						//std::cout << "ROTATE_LEFT";
 						return ROTATE_LEFT;
 					}
 				}

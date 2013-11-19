@@ -19,22 +19,8 @@ void Room::set_Event(){
 	
 }
 
-int Room::printText(string str){
 
-	for (unsigned i = 0; i < str.length(); i++)
-  {
-    cout << str[i];
-    if((i + 1) < str.length() && str[i+1] != '\n')
-      cout << char(219);
-    Sleep(50);
-    if((i + 1) < str.length() && str[i+1] != '\n')
-      cout << char(8);
-  }
-  cout << ' ' << char(8); 
-  return(0);
-
-}
-
+/*
 void Room::tomte() {
   
 	string name;
@@ -52,7 +38,7 @@ void Room::tomte() {
 	getchar();
 
 }
-
+*/
 
 
   

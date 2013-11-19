@@ -94,6 +94,8 @@ xcopy ..\lib\x86\msvcr100d.dll "$(TargetDir)"</Command>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
 
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

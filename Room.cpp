@@ -19,7 +19,7 @@ void Room::set_Event(){
 	
 }
 
-int printText(string str){
+int Room::printText(string str){
 
 	for (unsigned i = 0; i < str.length(); i++)
   {
@@ -35,7 +35,7 @@ int printText(string str){
 
 }
 
-int main () {
+void Room::tomte() {
   
 	string name;
 	string hej = "Hallo Elleh!\n";

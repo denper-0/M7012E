@@ -1,11 +1,8 @@
 #include "Main.h"
+#include "Room.h"
 #include <iostream>
 using namespace std;
 
-Main::Main(void)
-{
-
-}
 
 
 int main(void)
@@ -17,8 +14,9 @@ int main(void)
                 Frame previous = controller.frame(1); //The previous frame
         }
 	return 0;
+	
+		
+
 }
 
-Main::~Main(void)
-{
-}
+

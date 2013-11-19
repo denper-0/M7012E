@@ -1,14 +1,11 @@
 #include "Main.h"
 #include "MyLeap.h"
+#include "Room.h"
 #include <iostream>
 #include <windows.h>
 #include <vector>
 using namespace std;
 
-Main::Main(void)
-{
-
-}
 
 
 int main(void)
@@ -26,8 +23,9 @@ int main(void)
 		}
 	}
 	return 0;
+	
+		
+
 }
 
-Main::~Main(void)
-{
-}
+

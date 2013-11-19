@@ -36,7 +36,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ExecutablePath>C:\Users\Jaam\Documents\GitHub\M7012E\Debug;$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -76,12 +78,22 @@ xcopy ..\lib\x86\msvcr100d.dll "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Event.cpp" />
     <ClCompile Include="Main.cpp" />
+
     <ClCompile Include="MyLeap.cpp" />
-  </ItemGroup>
-  <ItemGroup>
+
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Room.cpp" />
+
+    <ClInclude Include="Event.h" />
     <ClInclude Include="Main.h" />
+
     <ClInclude Include="MyLeap.h" />
+
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Room.h" />
+
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

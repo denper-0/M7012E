@@ -6,10 +6,19 @@ using namespace std;
 
 class Event
 {
+private:
+	MyLeapAction a;
+	string eventText;
+	PlayerState cur_PS;
+	PlayerState new_PS;
+	RoomState cur_RS;
+	RoomState new_RS;
 public:
 	Event(void);
 	~Event(void);
-	MyLeapAction a;
-	int facing;
+	string setEventText(string);
+	string getEventText();
+	void setPlayerstate(PlayerState, PlayerState);
+	void setRoomstate(RoomState, RoomState);
 };
 

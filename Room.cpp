@@ -1,22 +1,39 @@
 // function template
 #include "Room.h"
-#include <iostream>
-using namespace std;
-#include <Windows.h>
-#include <WinUser.h>
-#include <string>
-#include <fstream>
-#include <list>
 
 
-
-
-void Room::set_Description(int count, string desc){
-	Room::description[count] = desc;
+Room::Room(void) {
+	description.resize(4);
+	setDescription(0,"You are facing north");
+	setDescription(1,"You are facing east");
+	setDescription(2,"You are facing south");
+	setDescription(3,"You are facing west");
 }
 
-void Room::set_Event(){
+Room::~Room(void) {
+	//?? memoryleeekekekes?
+}
+
+void Room::setDescription(int rd, string desc){
+	description[rd] = desc;
+}
+string Room::getDescription(int rd) {
+	return description[rd];
+}
+
+void Room::setEvent(Event e, Room newRoom, Player newPlayer, string output) {
 	
+}
+vector<Event> Room::getEvents() {
+	return events;
+}
+
+
+void Room::setDoor(int rd, Room r) {
+	doorlist[rd] = r;
+}
+Room Room::getDoor(int rd) {
+	return doorlist[rd];
 }
 
 

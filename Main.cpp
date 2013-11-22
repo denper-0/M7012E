@@ -1,8 +1,5 @@
 #include "Main.h"
-#include "MyLeap.h"
-#include <iostream>
-#include <windows.h>
-#include <vector>
+
 using namespace std;
 
 Main::Main(void) {
@@ -14,7 +11,8 @@ Main::~Main(void) {
 }
 
 int Main::printText(string str){
-
+	str = str+"\n";
+	//cout << string(50, '\n');
 	for (unsigned i = 0; i < str.length(); i++)
   {
     cout << str[i];
@@ -37,15 +35,41 @@ void Main::looper() {
 	actions.push_back(ROTATE_LEFT);
 	actions.push_back(ROTATE_RIGHT);
 	MyLeapAction action;
+	
+	Player *player = new Player();
+	Room *currentRoom = new Room();
+
+	currentRoom->setDescription(NORTH, "You are facing north. ");
+	currentRoom->setDescription(WEST, "You are facing west. ");
+	//currentRoom->onAction(ROTATE_LEFT, new PlayerState(NORTH), "You turned left, "+currentRoom->getDescription(WEST));
+
+
+	vector<Event> currentEvents;
 	while(true) {
+		currentEvents = currentRoom->getEvents();
+
+
 		action = L->getAction(0,actions);
+
 		if(action != NOTHING) {
+			
 			if(action == ROTATE_LEFT) {
-				printText("Left\n");
-			} else {
-				printText("Right\n");
+				if(player->getFacing() == NORTH) {
+					player->setFacing(WEST);
+				} else {
+					player->setFacing(player->getFacing()-1);
+				}
+				printText(currentRoom->getDescription(player->getFacing()));
+			} else if(action == ROTATE_RIGHT) {
+				if(player->getFacing() == WEST) {
+					player->setFacing(NORTH);
+				} else {
+					player->setFacing(player->getFacing()+1);
+				}
+				printText(currentRoom->getDescription(player->getFacing()));
 			}
 		}
+
 	}
 }
 

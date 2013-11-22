@@ -1,6 +1,4 @@
 #include "MyLeap.h"
-#include <algorithm>
-#include <iostream>
 
 MyLeap::MyLeap(void)
 {

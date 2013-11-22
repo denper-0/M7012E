@@ -3,6 +3,8 @@
 #include "Leap.h"
 using namespace Leap;
 #include <vector>
+#include <algorithm>
+#include <iostream>
 
 enum MyLeapAction { ROTATE_LEFT, ROTATE_RIGHT, NOT_CONNECTED, NOTHING, RANDOMSHIT };
 

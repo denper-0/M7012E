@@ -2,7 +2,7 @@
 #include "Room.h"
 #include "State.h"
 #include <vector>
-#include <iostream>
+#include <string>
 
 
 class RoomState : public State

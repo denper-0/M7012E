@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Event.h"
 #include "Player.h"
+#include "StateHolder.h"
 using namespace std;
 
 #include <string>
@@ -10,7 +11,7 @@ using namespace std;
 enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 
 
-class Room{
+class Room : public StateHolder {
 	
 private:
 	vector<string> description;

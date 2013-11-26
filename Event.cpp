@@ -2,8 +2,13 @@
 
 
 
-Event::Event(void) {
-
+Event::Event(MyLeapAction a, PlayerState current_PS, PlayerState newPS, RoomState current_RS, RoomState newRS, string eText) {
+	action = a;
+	cur_PS = current_PS;
+	new_PS = newPS;
+	cur_RS = current_PS;
+	new_RS = newRS;
+	eventText = eText;
 }
 
 Event::~Event(void) {

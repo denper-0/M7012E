@@ -7,14 +7,14 @@ using namespace std;
 class Event
 {
 private:
-	MyLeapAction a;
+	MyLeapAction action;
 	string eventText;
 	PlayerState cur_PS;
 	PlayerState new_PS;
 	RoomState cur_RS;
 	RoomState new_RS;
 public:
-	Event(void);
+	Event(MyLeapAction, PlayerState, PlayerState, RoomState, Roomstate, string);
 	~Event(void);
 	string setEventText(string);
 	string getEventText();

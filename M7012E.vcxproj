@@ -79,21 +79,19 @@ xcopy ..\lib\x86\msvcr100d.dll "$(TargetDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Event.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gametext.cpp" />
     <ClCompile Include="Main.cpp" />
-
     <ClCompile Include="MyLeap.cpp" />
-
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
-
     <ClInclude Include="Event.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Gametext.h" />
     <ClInclude Include="Main.h" />
-
     <ClInclude Include="MyLeap.h" />
-
     <ClInclude Include="Player.h" />
     <ClInclude Include="Room.h" />
-
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
   </ItemGroup>

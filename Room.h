@@ -19,6 +19,7 @@ private:
 	vector<Event> events;
 	vector<MyLeapAction> allowedActions;
 	vector<string> onActionOutput;
+	enum {START,NORMAL,GOAL} roomType;
 public:
 	Room(void);
 	~Room(void);
@@ -31,6 +32,8 @@ public:
 	void setDoor(int, Room);
 	Room getDoor(int);
 
-	bool start;
+	
+	virtual void overwrite(State s); // must be implemented
+	virtual bool isEqual(State s); // must be implemented
 };
 

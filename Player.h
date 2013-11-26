@@ -1,11 +1,11 @@
 #pragma once
-
+#include "StateHolder.h"
 #include <vector>
 #include <iostream>
 //#include "Room.h"
 using namespace std;
 
-class Player
+class Player : public StateHolder
 {
 public:
 	Player(void);
@@ -15,6 +15,9 @@ public:
 	string getInventory();
 	void addToInventory(int);
 	void removeToInventory(int);
+	virtual void overwrite(State s) = 0; // must be implemented
+	virtual bool isEqual(State s) = 0; // must be implemented
+
 private:
 	int facing;
 	int HP;

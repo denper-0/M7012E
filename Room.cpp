@@ -45,8 +45,7 @@ Room* Room::getDoor(int rd) {
 	return currentRoomState.getDoor(rd);
 }
 
-void overwrite(){
-
+void overwrite() {
 }
 
 bool isEqual(State s){

@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include "MyLeap.h"
+#include "RoomState.h"
+#include "PlayerState.h"
 //#include "Room.h"
 using namespace std;
 
@@ -16,9 +18,14 @@ private:
 public:
 	Event(MyLeapAction, PlayerState, PlayerState, RoomState, RoomState, string);
 	~Event(void);
-	string setEventText(string);
-	string getEventText();
-	void setPlayerstate(PlayerState, PlayerState);
-	void setRoomstate(RoomState, RoomState);
+	void setText(string);
+	string getText();
+	void setPlayerState(PlayerState currentRS, PlayerState newRS);
+	void setRoomState(RoomState currentRS,RoomState newRS);
+	PlayerState getNewPlayerstate();
+	RoomState getNewRoomstate();
+	PlayerState getCurrentPlayerstate();
+	RoomState getCurrentRoomstate();
+	MyLeapAction getAction();
 };
 

@@ -27,11 +27,12 @@ public:
 	string getDescription(int rd);
 
 	void setEvent(Event e);
-	vector<Event> getEvents();
+	vector<Event> getEvents(int);
 
 	void setDoor(int, Room);
 	Room getDoor(int);
 
+	vector<MyLeapAction> getAllowedActions();
 	
 	virtual void overwrite(State s); // must be implemented
 	virtual bool isEqual(State s); // must be implemented

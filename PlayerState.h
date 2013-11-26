@@ -12,7 +12,7 @@ private:
 	int facing;
 	int HP;
 public:
-	PlayerState(int facing);
+	PlayerState(int facing = 0);
 	~PlayerState(void);
 	
 	

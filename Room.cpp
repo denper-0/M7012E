@@ -24,8 +24,14 @@ string Room::getDescription(int rd) {
 void Room::setEvent(Event e) {
 	
 }
-vector<Event> Room::getEvents() {
-	return events;
+vector<Event> Room::getEvents(MyLeapAction action) {
+	vector<Event> ret;
+	for(int i =0; i<events.size(); i++) {
+		if(events[i].getAction() == action) {
+			ret.push_back(events[i]);
+		}
+	}
+	return ret;
 }
 
 

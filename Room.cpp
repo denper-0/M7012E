@@ -21,7 +21,7 @@ string Room::getDescription(int rd) {
 	return description[rd];
 }
 
-void Room::setEvent(Event e, Room newRoom, Player newPlayer, string output) {
+void Room::setEvent(Event e) {
 	
 }
 vector<Event> Room::getEvents() {
@@ -30,10 +30,10 @@ vector<Event> Room::getEvents() {
 
 
 void Room::setDoor(int rd, Room r) {
-	doorlist[rd] = r;
+	doors[rd] = r;
 }
 Room Room::getDoor(int rd) {
-	return doorlist[rd];
+	return doors[rd];
 }
 
 

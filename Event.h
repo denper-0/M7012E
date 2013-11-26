@@ -14,7 +14,7 @@ private:
 	RoomState cur_RS;
 	RoomState new_RS;
 public:
-	Event(MyLeapAction, PlayerState, PlayerState, RoomState, Roomstate, string);
+	Event(MyLeapAction, PlayerState, PlayerState, RoomState, RoomState, string);
 	~Event(void);
 	string setEventText(string);
 	string getEventText();

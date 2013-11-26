@@ -2,7 +2,8 @@
 
 
 Player::Player(void) {
-	this->facing = 0;
+	facing = 0;
+	HP = 10;
 }
 
 Player::~Player(void) {
@@ -10,7 +11,7 @@ Player::~Player(void) {
 }
 
 int Player::getFacing() {
-	return facing;
+	return this->facing;
 }
 void Player::setFacing(int facing) {
 	this->facing = facing;

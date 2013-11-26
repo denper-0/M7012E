@@ -3,11 +3,18 @@
 #include "Player.h"
 #include "Gametext.h"
 #include <string>
+
+#include "PlayerState.h"
+#include "RoomState.h"
+#include "Event.h"
+
+
 #include <vector>
 
 #include <windows.h>
 #include <fstream>
 #include <iostream>
+
 using namespace std;
 
 class Game

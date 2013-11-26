@@ -14,7 +14,7 @@ class Room{
 	
 private:
 	vector<string> description;
-	vector<Room> doorlist;
+	vector<Room> doors;
 	vector<Event> events;
 	vector<MyLeapAction> allowedActions;
 	vector<string> onActionOutput;
@@ -24,11 +24,11 @@ public:
 	void setDescription(int rd, string description);
 	string getDescription(int rd);
 
-	void setEvent(Event e, Room newRoom, Player newPlayer, string output);
+	void setEvent(Event e);
 	vector<Event> getEvents();
 
-	void setDoor(int rd, Room r);
-	Room getDoor(int rd);
+	void setDoor(int, Room);
+	Room getDoor(int);
 
 	bool start;
 };

@@ -3,6 +3,10 @@
 #include "Player.h"
 #include "Gametext.h"
 #include <string>
+#include "PlayerState.h"
+#include "RoomState.h"
+#include "Event.h"
+#include
 using namespace std;
 
 class Game

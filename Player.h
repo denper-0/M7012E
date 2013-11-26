@@ -1,5 +1,6 @@
 #pragma once
-#include <list>
+
+#include <vector>
 #include <iostream>
 //#include "Room.h"
 using namespace std;
@@ -11,9 +12,13 @@ public:
 	~Player(void);
 	int getFacing();
 	void setFacing(int facing);
-
+	string getInventory();
+	void addToInventory(int);
+	void removeToInventory(int);
 private:
 	int facing;
-	list<string> items;		//Kanske object senare
+	int HP;
+	vector<int> inventory;
+
 };
 

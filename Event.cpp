@@ -1,5 +1,6 @@
 #include "Event.h"
-
+#include "RoomState.h"
+#include "PlayerState.h"
 
 
 Event::Event(MyLeapAction a, PlayerState current_PS, PlayerState newPS, RoomState current_RS, RoomState newRS, string eText) {
@@ -17,20 +18,20 @@ Event::~Event(void) {
 
 void setEventText(string eventStr){
 
-	Event::eventText = eventStr;
+	eventText = eventStr;
 }
 
 string getEventText(){
 
-	 return Event::eventText;
+	 return eventText;
 }
 
-void setPlayerstate(PlayerState current_PS,PlayerState newPS){
-	Event::cur_PS = currentPS;
-	Event::new_PS = newPS;
+void setPlayerstate(PlayerState currentPS,PlayerState newPS){
+	cur_PS = currentPS;
+	new_PS = newPS;
 }
 
-void setPlayerstate(PlayerState current_PS,PlayerState newPS){
-	Event::cur_RS = currentRS;
-	Event::new_RS = newRS;
+void setPlayerstate(PlayerState currentRS,PlayerState newRS){
+	cur_RS = currentRS;
+	new_RS = newRS;
 }

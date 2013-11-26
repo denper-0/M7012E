@@ -1,12 +1,6 @@
 #pragma once
 
-//#include <WinUser.h>
-#include <fstream>
-#include "MyLeap.h"
-#include <windows.h>
-#include <vector>
-#include "Room.h"
-#include <iostream>
+#include "Game.h"
 using namespace std;
 
 class Main
@@ -14,6 +8,4 @@ class Main
 public:
 	Main(void);
 	~Main(void);
-	int printText(string); 
-	void looper(); 
 };

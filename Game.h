@@ -3,10 +3,18 @@
 #include "Player.h"
 #include "Gametext.h"
 #include <string>
+
 #include "PlayerState.h"
 #include "RoomState.h"
 #include "Event.h"
-#include
+
+
+#include <vector>
+
+#include <windows.h>
+#include <fstream>
+#include <iostream>
+
 using namespace std;
 
 class Game
@@ -15,7 +23,8 @@ public:
 	Game(void);
 	~Game(void);
 	void initLevel();
-	void looper();
+	int looper();
+	void printText(string str);
 private:
 	Room *currentRoom;
 	Player *currentPlayer;

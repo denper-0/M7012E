@@ -29,7 +29,7 @@ vector<Event> Room::getEvents() {
 }
 
 
-void Room::setDoor(int rd, Room r) {
+void Room::setDoor(int rd, Room* r) {
 	doors[rd] = r;
 }
 Room Room::getDoor(int rd) {

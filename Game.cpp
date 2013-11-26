@@ -87,7 +87,7 @@ Room Game::decorateRoom(Room *r, int option, string text) {
 	}
 }
 
-void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
+void Game::connectRooms(Room r1, Room *r2, int firstRoomsDirection) {
 	if(firstRoomsDirection == NORTH) {
 		r1->setDoor(NORTH, r1);
 		r2->setDoor(SOUTH, r2);
@@ -105,7 +105,7 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 
 void Game::initLevel() {
 	
-	currentRoom->setEvent(new Event(
+	currentRoom->setEvent(*new Event(
 		NOTHING,
 		new PlayerState(), // current state
 		new RoomState(),
@@ -130,7 +130,7 @@ void Game::initLevel() {
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, text->getText(10));
 
 	Room *goal = new Room();
-	goal->setEvent(new Event(
+	goal->setEvent(*new Event(
 		NOTHING,
 		new PlayerState(), // current state
 		new RoomState(),

@@ -2,6 +2,7 @@
 #include "Room.h"
 #include "Player.h"
 #include "Gametext.h"
+#include <string>
 using namespace std;
 
 class Game

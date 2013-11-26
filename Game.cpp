@@ -149,11 +149,39 @@ void Game::looper() {
 	MyLeapAction a;
 	vector<MyLeapAction> allowedActions;
 	
+	Room* nextRoom;
+
 	MyLeap* L;
 	L = new MyLeap();
+	vector<Event*> events;
+	vector<Event*> eventsOnNothingAction;
+	string output;
 
 	while (true) {
 		allowedActions = currentRoom->getAllowedActions();
 		a = L->getAction(allowedActions);
+		
+		eventsOnNothingAction = currentRoom->getEvents(NOTHING);
+		events = currentRoom->getEvents(a);
+		events.insert( events.end(), eventsOnNothingAction.begin(), eventsOnNothingAction.end() );
+		
+		for(int i=0; i<events.size(); i++) {
+			if(currentPlayer->check(events[i]->getPlayerstate()) && currentRoom->check(events[i]->getRoomstate()) {
+				currentPlayer->overWrite((events[i]->getPlayerstate());
+				currentRoom->overWrite((events[i]->getRoomstate());
+				output = events[i]->getText();
+				if(output) {
+					this->printText(output);
+				}
+				if(events[i]->getMoveToNextRoom()) {
+					nextRoom = currentRoom->getRoom(currentPlayer->getFacing());
+					if(nextRoom) {
+						currentRoom = nextRoom;
+						// print description here?
+					}
+				}
+			}
+		}
+
 	}
 }

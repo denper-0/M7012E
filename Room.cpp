@@ -41,14 +41,11 @@ void Room::setDoor(int rd, Room* r) {
 	currentRoomState.setDoor(rd, r);
 }
 
-
 Room* Room::getDoor(int rd) {
 	return currentRoomState.getDoor(rd);
 }
 
 void overwrite(){
-
-
 
 }
 

@@ -87,7 +87,7 @@ Room Game::decorateRoom(Room *r, int option, string text) {
 	}
 }
 
-void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
+void Game::connectRooms(Room r1, Room *r2, int firstRoomsDirection) {
 	if(firstRoomsDirection == NORTH) {
 		r1->setDoor(NORTH, *r1);
 		r2->setDoor(SOUTH, *r2);

@@ -15,7 +15,7 @@ class Room : public StateHolder {
 	
 private:
 	vector<string> description;
-	vector<Room> doors;
+	vector<Room*> doors;
 	vector<Event> events;
 	vector<MyLeapAction> allowedActions;
 	vector<string> onActionOutput;
@@ -29,8 +29,8 @@ public:
 	void setEvent(Event e);
 	vector<Event> getEvents(int);
 
-	void setDoor(int, Room);
-	Room getDoor(int);
+	void setDoor(int, Room*);
+	Room* getDoor(int);
 
 	vector<MyLeapAction> getAllowedActions();
 	

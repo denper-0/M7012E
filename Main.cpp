@@ -10,6 +10,8 @@ Main::~Main(void) {
 
 }
 
+/*
+first prototype
 int Main::printText(string str){
 	str = str+"\n";
 	//cout << string(50, '\n');
@@ -26,7 +28,6 @@ int Main::printText(string str){
   return(0);
 
 }
-
 void Main::looper() {
 	
 	MyLeap* L;
@@ -72,12 +73,12 @@ void Main::looper() {
 
 	}
 }
-
+*/
 int main(void)
 {
-	Main m;
-	m.looper();
-	return 0;
+	Game g;
+	g.initLevel();
+	return g.looper();
 }
 
 

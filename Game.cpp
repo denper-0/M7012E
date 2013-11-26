@@ -144,8 +144,22 @@ void Game::initLevel() {
 	room2->setDoor(NORTH, goal); // no way back ^^
 }
 
+void Game::printText(string str){
+	str = str+"\n";
+	//cout << string(50, '\n');
+	for (unsigned i = 0; i < str.length(); i++)
+  {
+    cout << str[i];
+    if((i + 1) < str.length() && str[i+1] != '\n')
+      cout << char(219);
+    Sleep(50);
+    if((i + 1) < str.length() && str[i+1] != '\n')
+      cout << char(8);
+  }
+  cout << ' ' << char(8); 
+}
 
-void Game::looper() {
+int Game::looper() {
 	MyLeapAction a;
 	vector<MyLeapAction> allowedActions;
 	
@@ -159,7 +173,7 @@ void Game::looper() {
 
 	while (true) {
 		allowedActions = currentRoom->getAllowedActions();
-		a = L->getAction(allowedActions);
+		a = L->getAction(0, allowedActions);
 		
 		eventsOnNothingAction = currentRoom->getEvents(NOTHING);
 		events = currentRoom->getEvents(a);
@@ -182,6 +196,6 @@ void Game::looper() {
 				}
 			}
 		}
-
 	}
+	return 0;
 }

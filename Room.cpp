@@ -42,7 +42,14 @@ Room Room::getDoor(int rd) {
 	return doors[rd];
 }
 
+void overwrite(){
 
+
+}
+
+bool isEqual(State s){
+
+}
 /*
 void Room::tomte() {
   

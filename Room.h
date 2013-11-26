@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Event.h"
 #include "Player.h"
+#include "StateHolder.h"
 using namespace std;
 
 #include <string>
@@ -10,7 +11,7 @@ using namespace std;
 enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 
 
-class Room{
+class Room : public StateHolder {
 	
 private:
 	vector<string> description;
@@ -18,6 +19,7 @@ private:
 	vector<Event> events;
 	vector<MyLeapAction> allowedActions;
 	vector<string> onActionOutput;
+	enum {START,NORMAL,GOAL} roomType;
 public:
 	Room(void);
 	~Room(void);
@@ -30,6 +32,8 @@ public:
 	void setDoor(int, Room*);
 	Room* getDoor(int);
 
-	bool start;
+	
+	virtual void overwrite(State s); // must be implemented
+	virtual bool isEqual(State s); // must be implemented
 };
 

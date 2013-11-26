@@ -1,9 +1,9 @@
 #include "PlayerState.h"
 
 
-PlayerState::PlayerState(void)
+PlayerState::PlayerState(int facing = 0)
 {
-	
+	this->facing = facing;
 }
 
 

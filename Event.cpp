@@ -1,7 +1,7 @@
 #include "Event.h"
 
 
-Event::Event(MyLeapAction a, PlayerState current_PS, PlayerState newPS, RoomState current_RS, RoomState newRS, string eText) {
+Event::Event(MyLeapAction a, PlayerState current_PS, RoomState current_RS, PlayerState newPS, RoomState newRS, string eText) {
 	action = a;
 	cur_PS = current_PS;
 	new_PS = newPS;

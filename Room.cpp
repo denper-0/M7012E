@@ -3,11 +3,6 @@
 
 
 Room::Room(void) {
-	description.resize(4);
-	setDescription(0,"You are facing north");
-	setDescription(1,"You are facing east");
-	setDescription(2,"You are facing south");
-	setDescription(3,"You are facing west");
 }
 
 Room::~Room(void) {
@@ -15,16 +10,16 @@ Room::~Room(void) {
 }
 
 void Room::setDescription(int rd, string desc){
-	description[rd] = desc;
+	currentRoomState.setDesc(rd, desc);
 }
 string Room::getDescription(int rd) {
-	return description[rd];
+	return currentRoomState.getDesc(rd);
 }
 
 void Room::setEvent(Event e) {
 	
 }
-vector<Event> Room::getEvents(MyLeapAction action) {
+vector<Event> Room::getEvents(int action) {
 	vector<Event> ret;
 	for(int i =0; i<events.size(); i++) {
 		if(events[i].getAction() == action) {
@@ -34,14 +29,21 @@ vector<Event> Room::getEvents(MyLeapAction action) {
 	return ret;
 }
 
+vector<MyLeapAction> Room::getAllowedActions() {
+	vector<MyLeapAction> ret;
+	for(int i =0; i<events.size(); i++) {
+		ret.push_back(events[i].getAction());
+	}
+	return ret;
+}
 
 void Room::setDoor(int rd, Room* r) {
-	doors[rd] = r;
-}
-Room Room::getDoor(int rd) {
-	return doors[rd];
+	currentRoomState.setDoor(rd, r);
 }
 
+Room* Room::getDoor(int rd) {
+	return currentRoomState.getDoor(rd);
+}
 
 /*
 void Room::tomte() {

@@ -3,29 +3,27 @@
 
 RoomState::RoomState(void)
 {
-	
+	description.resize(4);
 }
-
 
 RoomState::~RoomState(void)
 {
 }
 
-void RoomState::setDesc(string desc){
-		this->description = desc;
+void RoomState::setDesc(int rd, string desc){
+	this->description[rd] = desc;
 }
 
-string RoomState::getDesc(){
-	return this->description;
+string RoomState::getDesc(int rd){
+	return this->description[rd];
 
 }
 
-void RoomState::setDoors(int dir, Room door){
+void RoomState::setDoor(int dir, Room door){
 	this->doors[dir] = door;
 
 }
 
-Room RoomState::getDoors(int dir){
-		return this->doors[dir];
-
+Room RoomState::getDoor(int dir){
+	return this->doors[dir];
 }

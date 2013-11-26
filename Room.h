@@ -14,8 +14,7 @@ enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 class Room : public StateHolder {
 	
 private:
-	vector<string> description;
-	vector<Room*> doors;
+	RoomState currentRoomState;
 	vector<Event> events;
 	vector<MyLeapAction> allowedActions;
 	vector<string> onActionOutput;

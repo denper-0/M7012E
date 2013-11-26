@@ -16,34 +16,34 @@ Room Game::decorateRoom(Room *r, int option, string text) {
 	case DECORATE_ROTATE_ROOM_LEFT:
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(NORTH), // current State
-			new RoomState(),
-			new PlayerState(WEST), // new state
-			new RoomState(),
+			*new PlayerState(NORTH), // current State
+			*new RoomState(),
+			*new PlayerState(WEST), // new state
+			*new RoomState(),
 			text+r->getDescription(WEST)
 		));
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(WEST), // current State
-			new RoomState(),
-			new PlayerState(SOUTH), // new state
-			new RoomState(),
+			*new PlayerState(WEST), // current State
+			*new RoomState(),
+			*new PlayerState(SOUTH), // new state
+			*new RoomState(),
 			text+r->getDescription(SOUTH)
 		));
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(SOUTH), // current State
-			new RoomState(),
-			new PlayerState(EAST), // new state
-			new RoomState(),
+			*new PlayerState(SOUTH), // current State
+			*new RoomState(),
+			*new PlayerState(EAST), // new state
+			*new RoomState(),
 			text+r->getDescription(EAST)
 		));
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(EAST), // current State
-			new RoomState(),
-			new PlayerState(NORTH), // new state
-			new RoomState(),
+			*new PlayerState(EAST), // current State
+			*new RoomState(),
+			*new PlayerState(NORTH), // new state
+			*new RoomState(),
 			text+r->getDescription(NORTH)
 		));
 
@@ -51,34 +51,34 @@ Room Game::decorateRoom(Room *r, int option, string text) {
 	case DECORATE_ROTATE_ROOM_RIGHT:
 		r->setEvent(*new Event(
 			ROTATE_RIGHT,
-			new PlayerState(NORTH), // current state
-			new RoomState(),
-			new PlayerState(EAST), // new state
-			new RoomState(),
+			*new PlayerState(NORTH), // current state
+			*new RoomState(),
+			*new PlayerState(EAST), // new state
+			*new RoomState(),
 			text+r->getDescription(EAST)
 		));
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(EAST), // current state
-			new RoomState(),
-			new PlayerState(SOUTH), // new state
-			new RoomState(),
+			*new PlayerState(EAST), // current state
+			*new RoomState(),
+			*new PlayerState(SOUTH), // new state
+			*new RoomState(),
 			text+r->getDescription(SOUTH)
 		));
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(SOUTH), // current state
-			new RoomState(),
-			new PlayerState(WEST), // new state
-			new RoomState(),
+			*new PlayerState(SOUTH), // current state
+			*new RoomState(),
+			*new PlayerState(WEST), // new state
+			*new RoomState(),
 			text+r->getDescription(WEST)
 		));
 		r->setEvent(*new Event(
 			ROTATE_LEFT,
-			new PlayerState(WEST), // current state
-			new RoomState(),
-			new PlayerState(NORTH), // new state
-			new RoomState(),
+			*new PlayerState(WEST), // current state
+			*new RoomState(),
+			*new PlayerState(NORTH), // new state
+			*new RoomState(),
 			text+r->getDescription(NORTH)
 		));
 		break;
@@ -87,19 +87,19 @@ Room Game::decorateRoom(Room *r, int option, string text) {
 	}
 }
 
-void Game::connectRooms(Room r1, Room *r2, int firstRoomsDirection) {
+void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 	if(firstRoomsDirection == NORTH) {
-		r1->setDoor(NORTH, *r1);
-		r2->setDoor(SOUTH, *r2);
+		r1->setDoor(NORTH, r1);
+		r2->setDoor(SOUTH, r2);
 	} else if(firstRoomsDirection == EAST) {
-		r1->setDoor(EAST, *r1);
-		r2->setDoor(WEST, *r2);
+		r1->setDoor(EAST, r1);
+		r2->setDoor(WEST, r2);
 	} else if(firstRoomsDirection == SOUTH) {
-		r1->setDoor(SOUTH, *r1);
-		r2->setDoor(NORTH, *r2);
+		r1->setDoor(SOUTH, r1);
+		r2->setDoor(NORTH, r2);
 	} else if(firstRoomsDirection == WEST) {
-		r1->setDoor(WEST, *r1);
-		r2->setDoor(EAST, *r2);
+		r1->setDoor(WEST, r1);
+		r2->setDoor(EAST, r2);
 	}
 }
 
@@ -107,10 +107,10 @@ void Game::initLevel() {
 	
 	currentRoom->setEvent(*new Event(
 		NOTHING,
-		new PlayerState(), // current state
-		new RoomState(),
-		new PlayerState(), // new state
-		new RoomState(),
+		*new PlayerState(), // current state
+		*new RoomState(),
+		*new PlayerState(), // new state
+		*new RoomState(),
 		text->getText(0)
 	));
 
@@ -132,16 +132,16 @@ void Game::initLevel() {
 	Room *goal = new Room();
 	goal->setEvent(*new Event(
 		NOTHING,
-		new PlayerState(), // current state
-		new RoomState(),
-		new PlayerState(), // new state
-		new RoomState(),
+		*new PlayerState(), // current state
+		*new RoomState(),
+		*new PlayerState(), // new state
+		*new RoomState(),
 		text->getText(100)
 	));
 
 	connectRooms(currentRoom, room2, NORTH);
 
-	room2->setDoor(NORTH, *goal); // no way back ^^
+	room2->setDoor(NORTH, goal); // no way back ^^
 }
 
 void Game::printText(string str){

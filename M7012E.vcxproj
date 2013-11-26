@@ -87,6 +87,8 @@ xcopy ..\lib\x86\msvcr100d.dll "$(TargetDir)"</Command>
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomState.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="StateHolder.cpp" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gametext.h" />
@@ -98,6 +100,8 @@ xcopy ..\lib\x86\msvcr100d.dll "$(TargetDir)"</Command>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClInclude Include="RoomState.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="StateHolder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

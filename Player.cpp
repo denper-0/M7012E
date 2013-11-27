@@ -24,7 +24,7 @@ void Player::overWrite(State* s) {
 }
 bool Player::isEqual(State* s) {
 	PlayerState* ps = static_cast<PlayerState*>(s); // typecast
-	if(currentState->getFacing() != ps->getFacing() && currentState->getFacing() != 4) {
+	if(currentState->getFacing() != ps->getFacing() && ps->getFacing() != 4) {
 		return false;
 	}
 	return true;

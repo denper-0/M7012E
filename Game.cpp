@@ -57,7 +57,7 @@ Room* Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(EAST)
 		));
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			ROTATE_RIGHT,
 			new PlayerState(EAST), // current state
 			new RoomState(),
 			new PlayerState(SOUTH), // new state
@@ -65,7 +65,7 @@ Room* Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(SOUTH)
 		));
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			ROTATE_RIGHT,
 			new PlayerState(SOUTH), // current state
 			new RoomState(),
 			new PlayerState(WEST), // new state
@@ -73,7 +73,7 @@ Room* Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(WEST)
 		));
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			ROTATE_RIGHT,
 			new PlayerState(WEST), // current state
 			new RoomState(),
 			new PlayerState(NORTH), // new state
@@ -107,21 +107,24 @@ void Game::initLevel() {
 	currentPlayer = new Player();
 
 	currentRoom = new Room();
-	currentRoom->setEvent(new Event(
+	Event* e = new Event(
 		NOTHING,
-		new PlayerState(), // current state
+		new PlayerState(SOUTH), // current state
 		new RoomState(),
 		new PlayerState(), // new state
 		new RoomState(),
-		text->getText(0)
-	));
+		text->getText(10)
+	);
+	e->setMoveToNextRoom(true);
+	currentRoom->setEvent(e);
 
-	currentRoom->setDescription(0, text->getText(1));
-	currentRoom->setDescription(1, text->getText(2));
-	currentRoom->setDescription(2, text->getText(3));
-	currentRoom->setDescription(3, text->getText(4));
-	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, text->getText(9));
-	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, text->getText(10));
+
+	currentRoom->setDescription(0, "NORTH");
+	currentRoom->setDescription(1, "EAST");
+	currentRoom->setDescription(2, "SOUTH");
+	currentRoom->setDescription(3, "WEST");
+	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\nFacing: ");
+	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\nFacing: ");
 
 	Room* room2 = new Room();
 	currentRoom->setDescription(0, text->getText(5));
@@ -141,7 +144,7 @@ void Game::initLevel() {
 		text->getText(100)
 	));
 
-	connectRooms(currentRoom, room2, NORTH);
+	connectRooms(currentRoom, room2, SOUTH);
 
 	room2->setDoor(NORTH, goal); // no way back ^^
 }
@@ -172,15 +175,18 @@ int Game::looper() {
 	std::vector<Event*> events;
 	std::vector<Event*> eventsOnNothingAction;
 	std::string output;
-
+	this->printText(text->getText(0));
 	while (true) {
 		allowedActions = currentRoom->getAllowedActions();
 		a = L->getAction(0, allowedActions);
 		
-		eventsOnNothingAction = currentRoom->getEvents(NOTHING);
-		events = currentRoom->getEvents(a);
-		events.insert( events.end(), eventsOnNothingAction.begin(), eventsOnNothingAction.end() );
-		
+		if(a != NOTHING) {
+			eventsOnNothingAction = currentRoom->getEvents(NOTHING);
+			events = currentRoom->getEvents(a);
+			events.insert( events.end(), eventsOnNothingAction.begin(), eventsOnNothingAction.end() );
+		} else {
+			events = currentRoom->getEvents(a);
+		}
 		for(size_t i=0; i < events.size(); i++) {
 			if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
 				currentPlayer->overWrite((events[i]->getNewPlayerstate()));
@@ -191,14 +197,15 @@ int Game::looper() {
 				}
 				if(events[i]->getMoveToNextRoom()) {
 					nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
-					if(nextRoom) {
+					if(nextRoom != NULL) {
 						currentRoom = nextRoom;
-						// print description here?
 						this->printText(currentRoom->getDescription(currentPlayer->getFacing()));
 					}
 				}
+				break;
 			}
 		}
 	}
 	return 0;
+
 }

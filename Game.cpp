@@ -3,7 +3,6 @@
 
 Game::Game(void) {
 	text = new Gametext();
-	currentRoom = new Room();
 }
 
 
@@ -105,7 +104,9 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 }
 
 void Game::initLevel() {
-	
+	currentPlayer = new Player();
+
+	currentRoom = new Room();
 	currentRoom->setEvent(new Event(
 		NOTHING,
 		new PlayerState(), // current state

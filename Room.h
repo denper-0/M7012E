@@ -13,7 +13,7 @@ class Player;
 class StateHolder;
 enum MyLeapAction;
 
-enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST };
+enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST, NO_DIRECTION };
 
 
 class Room : public StateHolder {

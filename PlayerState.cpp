@@ -10,3 +10,10 @@ PlayerState::PlayerState(int f)
 PlayerState::~PlayerState(void)
 {
 }
+
+int PlayerState::getFacing(void) {
+	return facing;
+}
+void PlayerState::setFacing(int f) {
+	facing = f;
+}

@@ -47,11 +47,35 @@ Room* Room::getDoor(int rd) {
 	return currentRoomState->getDoor(rd);
 }
 
-void Room::overWrite(State* s) {
-}
 
-bool Room::isEqual(State* s){
-	return false;
+void Room::overWrite(State* s) {
+	RoomState* rs = static_cast<RoomState*>(s); // typecast
+
+	for(size_t i =0; i < 4; i++) {
+		if(rs->getDoor(i) != NULL) {
+			this->setDoor(i, rs->getDoor(i));
+		}
+	}
+	for(size_t i =0; i < 4; i++) {
+		if(rs->getDesc(i) != "") {
+			this->setDescription(i, rs->getDesc(i));
+		}
+	}
+}
+bool Room::isEqual(State* s) {
+	RoomState* rs = static_cast<RoomState*>(s); // typecast
+	
+	for(size_t i =0; i < 4; i++) {
+		if(rs->getDoor(i) != NULL && rs->getDoor(i) != this->getDoor(i)) {
+			return false;
+		}
+	}
+	for(size_t i =0; i < 4; i++) {
+		if(rs->getDesc(i) != "" && rs->getDesc(i) != this->getDescription(i)) {
+			return false;
+		}
+	}
+	return true;
 }
 /*
 void Room::tomte() {

@@ -29,3 +29,4 @@ void RoomState::setDoor(int dir, Room* door){
 Room* RoomState::getDoor(int dir){
 	return this->doors[dir];
 }
+

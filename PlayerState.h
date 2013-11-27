@@ -13,7 +13,9 @@ private:
 	int facing;
 	int HP;
 public:
-	PlayerState(int facing = 0);
+	PlayerState(int facing = 4);
 	~PlayerState(void);
+	int getFacing(void);
+	void setFacing(int f);
 };
 

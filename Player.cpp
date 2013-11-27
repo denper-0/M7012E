@@ -2,8 +2,7 @@
 
 
 Player::Player(void) {
-	facing = 0;
-	HP = 10;
+	currentState = new PlayerState(0);
 }
 
 Player::~Player(void) {
@@ -11,15 +10,22 @@ Player::~Player(void) {
 }
 
 int Player::getFacing() {
-	return this->facing;
+	return currentState->getFacing();
 }
 void Player::setFacing(int facing) {
-	this->facing = facing;
+	this->currentState->setFacing(facing);
 }
 
 void Player::overWrite(State* s) {
-
+	PlayerState* ps = static_cast<PlayerState*>(s); // typecast
+	if(ps->getFacing() != 4) {
+		currentState->setFacing(ps->getFacing());
+	}
 }
 bool Player::isEqual(State* s) {
-	return false;
+	PlayerState* ps = static_cast<PlayerState*>(s); // typecast
+	if(currentState->getFacing() != ps->getFacing() && currentState->getFacing() != 4) {
+		return false;
+	}
+	return true;
 }

@@ -10,19 +10,19 @@ Room::~Room(void) {
 }
 
 void Room::setDescription(int rd, std::string desc){
-	currentRoomState.setDesc(rd, desc);
+	currentRoomState->setDesc(rd, desc);
 }
 std::string Room::getDescription(int rd) {
-	return currentRoomState.getDesc(rd);
+	return currentRoomState->getDesc(rd);
 }
 
-void Room::setEvent(Event e) {
+void Room::setEvent(Event* e) {
 	
 }
-std::vector<Event> Room::getEvents(int action) {
-	std::vector<Event> ret;
+std::vector<Event*> Room::getEvents(int action) {
+	std::vector<Event*> ret;
 	for(int i =0; i < events.size(); i++) {
-		if(events[i].getAction() == action) {
+		if(events[i]->getAction() == action) {
 			ret.push_back(events[i]);
 		}
 	}
@@ -32,24 +32,24 @@ std::vector<Event> Room::getEvents(int action) {
 std::vector<MyLeapAction> Room::getAllowedActions() {
 	std::vector<MyLeapAction> ret;
 	for(int i =0; i<events.size(); i++) {
-		ret.push_back(events[i].getAction());
+		ret.push_back(events[i]->getAction());
 	}
 	return ret;
 }
 
 void Room::setDoor(int rd, Room* r) {
-	currentRoomState.setDoor(rd, r);
+	currentRoomState->setDoor(rd, r);
 }
 
 Room* Room::getDoor(int rd) {
-	return currentRoomState.getDoor(rd);
+	return currentRoomState->getDoor(rd);
 }
 
-void overwrite() {
+void Room::overWrite(State* s) {
 }
 
-bool isEqual(State s){
-
+bool Room::isEqual(State* s){
+	return false;
 }
 /*
 void Room::tomte() {

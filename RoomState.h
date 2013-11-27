@@ -1,10 +1,8 @@
 #pragma once
-//#include "Room.h"
-#include "State.h"
 #include <vector>
 #include <string>
+#include "State.h"
 
-//class State;
 class Room;
 
 class RoomState : public State

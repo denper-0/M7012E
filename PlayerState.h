@@ -3,7 +3,8 @@
 //#include "State.h"
 #include <iostream>
 //using namespace std;
-class State;
+#include "State.h"
+
 
 class PlayerState : public State
 {
@@ -14,7 +15,5 @@ private:
 public:
 	PlayerState(int facing = 0);
 	~PlayerState(void);
-	
-	
 };
 

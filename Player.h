@@ -4,7 +4,8 @@
 #include <iostream>
 //#include "Room.h"
 //using namespace std;
-class StateHolder;
+#include "StateHolder.h"
+class State;
 
 class Player : public StateHolder
 {
@@ -16,8 +17,8 @@ public:
 	std::string getInventory();
 	void addToInventory(int);
 	void removeToInventory(int);
-	virtual void overwrite(State s) = 0; // must be implemented
-	virtual bool isEqual(State s) = 0; // must be implemented
+	virtual void overWrite(State* s); // must be implemented
+	virtual bool isEqual(State* s); // must be implemented
 
 private:
 	int facing;

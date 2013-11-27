@@ -16,3 +16,10 @@ int Player::getFacing() {
 void Player::setFacing(int facing) {
 	this->facing = facing;
 }
+
+void Player::overWrite(State* s) {
+
+}
+bool Player::isEqual(State* s) {
+	return false;
+}

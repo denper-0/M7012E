@@ -15,22 +15,25 @@ class Event
 private:
 	MyLeapAction action;
 	std::string eventText;
-	PlayerState cur_PS;
-	PlayerState new_PS;
-	RoomState cur_RS;
-	RoomState new_RS;
+	PlayerState* cur_PS;
+	PlayerState* new_PS;
+	RoomState* cur_RS;
+	RoomState* new_RS;
+	bool moveToNextRoom;
 
 public:
-	Event(MyLeapAction, PlayerState, RoomState, PlayerState, RoomState, std::string);
+	Event(MyLeapAction, PlayerState*, RoomState*, PlayerState*, RoomState*, std::string);
 	~Event(void);
 	void setText(std::string);
 	std::string getText();
-	void setPlayerState(PlayerState currentRS, PlayerState newRS);
-	void setRoomState(RoomState currentRS, RoomState newRS);
-	PlayerState getNewPlayerstate();
-	RoomState getNewRoomstate();
-	PlayerState getCurrentPlayerstate();
-	RoomState getCurrentRoomstate();
+	void setPlayerState(PlayerState* currentRS, PlayerState* newRS);
+	void setRoomState(RoomState* currentRS, RoomState* newRS);
+	PlayerState* getNewPlayerstate();
+	RoomState* getNewRoomstate();
+	PlayerState* getCurrentPlayerstate();
+	RoomState* getCurrentRoomstate();
 	MyLeapAction getAction();
+	bool getMoveToNextRoom();
+	void setMoveToNextRoom(bool isOnThisEvent);
 };
 

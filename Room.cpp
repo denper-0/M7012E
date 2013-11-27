@@ -3,6 +3,8 @@
 
 
 Room::Room(void) {
+	currentRoomState = new RoomState();
+	
 }
 
 Room::~Room(void) {
@@ -17,11 +19,11 @@ std::string Room::getDescription(int rd) {
 }
 
 void Room::setEvent(Event* e) {
-	
+	events.push_back(e);
 }
 std::vector<Event*> Room::getEvents(int action) {
 	std::vector<Event*> ret;
-	for(int i =0; i < events.size(); i++) {
+	for(size_t i =0; i < events.size(); i++) {
 		if(events[i]->getAction() == action) {
 			ret.push_back(events[i]);
 		}
@@ -31,7 +33,7 @@ std::vector<Event*> Room::getEvents(int action) {
 
 std::vector<MyLeapAction> Room::getAllowedActions() {
 	std::vector<MyLeapAction> ret;
-	for(int i =0; i<events.size(); i++) {
+	for(size_t i =0; i<events.size(); i++) {
 		ret.push_back(events[i]->getAction());
 	}
 	return ret;

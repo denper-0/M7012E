@@ -180,7 +180,7 @@ int Game::looper() {
 		events = currentRoom->getEvents(a);
 		events.insert( events.end(), eventsOnNothingAction.begin(), eventsOnNothingAction.end() );
 		
-		for(int i=0; i<events.size(); i++) {
+		for(size_t i=0; i < events.size(); i++) {
 			if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
 				currentPlayer->overWrite((events[i]->getNewPlayerstate()));
 				currentRoom->overWrite((events[i]->getNewRoomstate()));

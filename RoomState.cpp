@@ -3,7 +3,9 @@
 
 RoomState::RoomState(void)
 {
-
+	description.resize(4);
+	items.resize(5);
+	doors.resize(4);
 }
 
 RoomState::~RoomState(void)
@@ -11,7 +13,7 @@ RoomState::~RoomState(void)
 }
 
 void RoomState::setDesc(int rd, std::string desc){
-	this->description[rd] = desc;
+	description.at(rd) = desc;
 }
 
 std::string RoomState::getDesc(int rd){

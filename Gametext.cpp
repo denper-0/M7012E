@@ -20,6 +20,9 @@ Gametext::~Gametext(void)
 }
 
 std::string Gametext::getText(int id) {
+	if(text.size() < id || id < 0) {
+		return "no text exists!";
+	}
 	return text[id];
 	
 }

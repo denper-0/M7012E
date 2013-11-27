@@ -1,4 +1,5 @@
 You're standing in the middle of the storm. You're standing outside a house facing its entrance, it looks dark and horrifying. Considering the storm you have no choice but to seek shelter and enter.
+You're facing the entrance.
 You see powerlines on the ground and no place to go.
 A loooooooong daaaaaaark roooaad...
 Fallen trees makes it impossible for an escape.

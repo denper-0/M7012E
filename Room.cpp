@@ -9,19 +9,19 @@ Room::~Room(void) {
 	//?? memoryleeekekekes?
 }
 
-void Room::setDescription(int rd, string desc){
+void Room::setDescription(int rd, std::string desc){
 	currentRoomState.setDesc(rd, desc);
 }
-string Room::getDescription(int rd) {
+std::string Room::getDescription(int rd) {
 	return currentRoomState.getDesc(rd);
 }
 
 void Room::setEvent(Event e) {
 	
 }
-vector<Event> Room::getEvents(int action) {
-	vector<Event> ret;
-	for(int i =0; i<events.size(); i++) {
+std::vector<Event> Room::getEvents(int action) {
+	std::vector<Event> ret;
+	for(int i =0; i < events.size(); i++) {
 		if(events[i].getAction() == action) {
 			ret.push_back(events[i]);
 		}
@@ -29,8 +29,8 @@ vector<Event> Room::getEvents(int action) {
 	return ret;
 }
 
-vector<MyLeapAction> Room::getAllowedActions() {
-	vector<MyLeapAction> ret;
+std::vector<MyLeapAction> Room::getAllowedActions() {
+	std::vector<MyLeapAction> ret;
 	for(int i =0; i<events.size(); i++) {
 		ret.push_back(events[i].getAction());
 	}

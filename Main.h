@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Game.h"
-using namespace std;
+//using namespace std;
 
 class Main
 {

@@ -1,12 +1,15 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#include "Event.h"
-#include "Player.h"
-#include "StateHolder.h"
-using namespace std;
-
 #include <string>
+//#include "Event.h"
+//#include "Player.h"
+//#include "StateHolder.h"
+//using namespace std;
+class Event;
+class Player;
+class StateHolder;
+class RoomState;
 
 enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 
@@ -14,24 +17,24 @@ enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST };
 class Room : public StateHolder {
 	
 private:
-	RoomState currentRoomState;
-	vector<Event> events;
-	vector<MyLeapAction> allowedActions;
-	vector<string> onActionOutput;
+	RoomState* currentRoomState;
+	std::vector<Event> events;
+	std::vector<MyLeapAction> allowedActions;
+	std::vector<std::string> onActionOutput;
 	enum {START,NORMAL,GOAL} roomType;
 public:
 	Room(void);
 	~Room(void);
-	void setDescription(int rd, string description);
-	string getDescription(int rd);
+	void setDescription(int rd, std::string description);
+	std::string getDescription(int rd);
 
 	void setEvent(Event e);
-	vector<Event> getEvents(int);
+	std::vector<Event> getEvents(int);
 
 	void setDoor(int, Room*);
 	Room* getDoor(int);
 
-	vector<MyLeapAction> getAllowedActions();
+	std::vector<MyLeapAction> getAllowedActions();
 	
 	virtual void overwrite(State s); // must be implemented
 	virtual bool isEqual(State s); // must be implemented

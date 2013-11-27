@@ -2,9 +2,9 @@
 
 Gametext::Gametext(void)
 {
-	fstream myFile("textToGame.txt", ios::in);
+	std::fstream myFile("textToGame.txt", std::ios::in);
 	if (!myFile) {
-		cerr << "Error opening file." << "textToGame.txt" << endl;
+		std::cerr << "Error opening file." << "textToGame.txt" << std::endl;
 		exit(1);
 	}
 	
@@ -19,7 +19,7 @@ Gametext::~Gametext(void)
 {
 }
 
-string Gametext::getText(int id) {
+std::string Gametext::getText(int id) {
 	return text[id];
 	
 }

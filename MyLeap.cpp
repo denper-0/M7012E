@@ -3,10 +3,10 @@
 MyLeap::MyLeap(void)
 {
 	
-	controller.enableGesture(Gesture::TYPE_CIRCLE);
-	controller.enableGesture(Gesture::TYPE_KEY_TAP);
-	controller.enableGesture(Gesture::TYPE_SCREEN_TAP);
-	controller.enableGesture(Gesture::TYPE_SWIPE);
+	controller.enableGesture(Leap::Gesture::TYPE_CIRCLE);
+	controller.enableGesture(Leap::Gesture::TYPE_KEY_TAP);
+	controller.enableGesture(Leap::Gesture::TYPE_SCREEN_TAP);
+	controller.enableGesture(Leap::Gesture::TYPE_SWIPE);
 	lastProcessedFrameID = 0;
 }
 
@@ -17,8 +17,8 @@ MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionLis
 		return ret;
 	}
 	ret = NOTHING;
-	Frame currentFrame = controller.frame();
-	Frame firstFrame = currentFrame;
+	Leap::Frame currentFrame = controller.frame();
+	Leap::Frame firstFrame = currentFrame;
 	int64_t currentID = currentFrame.id();
 	float instantaneousFrameRate = currentFrame.currentFramesPerSecond();
     
@@ -54,12 +54,12 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 	// ... 
 
 	// Get gestures
-	const GestureList gestures = frame.gestures();
+	const Leap::GestureList gestures = frame.gestures();
 	for (int g = 0; g < gestures.count(); ++g) {
-		Gesture gesture = gestures[g];
+		Leap::Gesture gesture = gestures[g];
 		switch (gesture.type()) {
-			case Gesture::TYPE_SWIPE: {
-				SwipeGesture swipe = gesture;
+			case Leap::Gesture::TYPE_SWIPE: {
+				Leap::SwipeGesture swipe = gesture;
 
 				if(gesture.state() == Leap::Gesture::STATE_STOP) {
 					if(swipe.direction().x > 0) {

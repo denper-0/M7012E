@@ -1,7 +1,7 @@
 #include "Event.h"
 
 
-Event::Event(MyLeapAction a, PlayerState current_PS, RoomState current_RS, PlayerState newPS, RoomState newRS, string eText) {
+Event::Event(MyLeapAction a, PlayerState current_PS, RoomState current_RS, PlayerState newPS, RoomState newRS, std::string eText) {
 	action = a;
 	cur_PS = current_PS;
 	new_PS = newPS;
@@ -14,11 +14,11 @@ Event::~Event(void) {
 
 }
 
-void Event::setText(string eventStr){
+void Event::setText(std::string eventStr){
 	eventText = eventStr;
 }
 
-string Event::getText(){
+std::string Event::getText(){
 	 return eventText;
 }
 

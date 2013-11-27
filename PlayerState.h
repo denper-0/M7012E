@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
-#include "State.h"
+//#include "State.h"
 #include <iostream>
-using namespace std;
-
+//using namespace std;
+class State;
 
 class PlayerState : public State
 {
 private: 
-	vector<int> items;
+	std::vector<int> items;
 	int facing;
 	int HP;
 public:

@@ -11,7 +11,7 @@ Game::~Game(void) {
 
 }
 
-Room Game::decorateRoom(Room *r, int option, string text) {
+Room Game::decorateRoom(Room *r, int option, std::string text) {
 	switch(option) {
 	case DECORATE_ROTATE_ROOM_LEFT:
 		r->setEvent(*new Event(
@@ -144,7 +144,7 @@ void Game::initLevel() {
 	room2->setDoor(NORTH, goal); // no way back ^^
 }
 
-void Game::printText(string str){
+void Game::printText(std::string str){
 	str = str+"\n";
 	//cout << string(50, '\n');
 	for (unsigned i = 0; i < str.length(); i++)

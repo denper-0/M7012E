@@ -1,5 +1,6 @@
 #pragma once
-#include "State.h";
+//#include "State.h"
+class State;
 
 /**
 Abstract interface for manipulating states
@@ -12,6 +13,6 @@ public:
 	virtual void overwrite(State s) = 0; // must be implemented
 	virtual bool isEqual(State s) = 0; // must be implemented
 private:
-	State currentState;
+	State* currentState;
 };
 

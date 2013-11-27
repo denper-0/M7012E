@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Leap.h"
-using namespace Leap;
+//using namespace Leap;
 #include <vector>
 #include <algorithm>
 #include <iostream>

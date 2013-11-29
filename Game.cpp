@@ -89,17 +89,17 @@ Room* Game::decorateRoom(Room *r, int option, std::string text) {
 
 void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 	if(firstRoomsDirection == NORTH) {
-		r1->setDoor(NORTH, r1);
-		r2->setDoor(SOUTH, r2);
+		r1->setDoor(NORTH, r2);
+		r2->setDoor(SOUTH, r1);
 	} else if(firstRoomsDirection == EAST) {
-		r1->setDoor(EAST, r1);
-		r2->setDoor(WEST, r2);
+		r1->setDoor(EAST, r2);
+		r2->setDoor(WEST, r1);
 	} else if(firstRoomsDirection == SOUTH) {
-		r1->setDoor(SOUTH, r1);
-		r2->setDoor(NORTH, r2);
+		r1->setDoor(SOUTH, r2);
+		r2->setDoor(NORTH, r1);
 	} else if(firstRoomsDirection == WEST) {
-		r1->setDoor(WEST, r1);
-		r2->setDoor(EAST, r2);
+		r1->setDoor(WEST, r2);
+		r2->setDoor(EAST, r1);
 	}
 }
 
@@ -127,12 +127,13 @@ void Game::initLevel() {
 	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\nFacing: ");
 
 	Room* room2 = new Room();
-	currentRoom->setDescription(0, text->getText(5));
-	currentRoom->setDescription(1, text->getText(6));
-	currentRoom->setDescription(2, text->getText(7));
-	currentRoom->setDescription(3, text->getText(8));
-	room2 = decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, text->getText(9));
-	room2 = decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, text->getText(10));
+	room2->setDescription(0, "NORTH, room2");
+	room2->setDescription(1, "EAST, room2");
+	room2->setDescription(2, "SOUTH, room2");
+	room2->setDescription(3, "WEST, room2");
+	room2 = decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You rotated the wall. \n");
+	room2 = decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You rotated the wall. \n");
+
 
 	Room *goal = new Room();
 	goal->setEvent(new Event(
@@ -189,20 +190,25 @@ int Game::looper() {
 		}
 		for(size_t i=0; i < events.size(); i++) {
 			if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
-				currentPlayer->overWrite((events[i]->getNewPlayerstate()));
-				currentRoom->overWrite((events[i]->getNewRoomstate()));
-				output = events[i]->getText();
-				if(output.empty() == false) {
-					this->printText(output);
+				
+			} else {
+				events.erase(events.begin()+i);
+				i--;
+			}
+		}
+		for(size_t i=0; i < events.size(); i++) {
+			currentPlayer->overWrite((events[i]->getNewPlayerstate()));
+			currentRoom->overWrite((events[i]->getNewRoomstate()));
+			output = events[i]->getText();
+			if(output.empty() == false) {
+				this->printText(output);
+			}
+			if(events[i]->getMoveToNextRoom()) {
+				nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
+				if(nextRoom != NULL) {
+					currentRoom = nextRoom;
+					this->printText(currentRoom->getDescription(currentPlayer->getFacing()));
 				}
-				if(events[i]->getMoveToNextRoom()) {
-					nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
-					if(nextRoom != NULL) {
-						currentRoom = nextRoom;
-						this->printText(currentRoom->getDescription(currentPlayer->getFacing()));
-					}
-				}
-				break;
 			}
 		}
 	}

@@ -27,7 +27,8 @@ private:
 	Player* currentPlayer;
 	Gametext *text;
 	enum DECORATE_ROOM_OPTION {DECORATE_ROTATE_ROOM_LEFT, DECORATE_ROTATE_ROOM_RIGHT};
-	Room* decorateRoom(Room *r, int options, std::string texts);
+	void decorateRoom(Room *r, int options, std::string texts);
 	void connectRooms(Room *r1, Room *r2, int firstRoomsDirection);
+	void setEventOnDoor(Room* r, int direction, std::string output = "");
 };
 

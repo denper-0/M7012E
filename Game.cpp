@@ -10,7 +10,7 @@ Game::~Game(void) {
 
 }
 
-Room* Game::decorateRoom(Room *r, int option, std::string text) {
+void Game::decorateRoom(Room *r, int option, std::string text) {
 	switch(option) {
 	case DECORATE_ROTATE_ROOM_LEFT:
 		r->setEvent(new Event(
@@ -84,20 +84,40 @@ Room* Game::decorateRoom(Room *r, int option, std::string text) {
 	default: 
 		break;
 	}
-	return r;
 }
 
+void Game::setEventOnDoor(Room* r, int direction, std::string output) {
+	Event* e;
+	e = new Event(
+		NOTHING,
+		new PlayerState(direction), // current state
+		new RoomState(),
+		new PlayerState(), // new state
+		new RoomState(),
+		output
+	);
+	e->setMoveToNextRoom(true);
+	r->setEvent(e);
+}
 void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 	if(firstRoomsDirection == NORTH) {
+		setEventOnDoor(r1, NORTH, "");
+		setEventOnDoor(r2, SOUTH, "");
 		r1->setDoor(NORTH, r2);
 		r2->setDoor(SOUTH, r1);
 	} else if(firstRoomsDirection == EAST) {
+		setEventOnDoor(r1, EAST, "");
+		setEventOnDoor(r2, WEST, "");
 		r1->setDoor(EAST, r2);
 		r2->setDoor(WEST, r1);
 	} else if(firstRoomsDirection == SOUTH) {
+		setEventOnDoor(r1, SOUTH, "");
+		setEventOnDoor(r2, NORTH, "");
 		r1->setDoor(SOUTH, r2);
 		r2->setDoor(NORTH, r1);
 	} else if(firstRoomsDirection == WEST) {
+		setEventOnDoor(r1, WEST, "");
+		setEventOnDoor(r2, EAST, "");
 		r1->setDoor(WEST, r2);
 		r2->setDoor(EAST, r1);
 	}
@@ -123,16 +143,16 @@ void Game::initLevel() {
 	currentRoom->setDescription(1, "EAST");
 	currentRoom->setDescription(2, "SOUTH");
 	currentRoom->setDescription(3, "WEST");
-	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\nFacing: ");
-	currentRoom = decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\nFacing: ");
+	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\nFacing: ");
+	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\nFacing: ");
 
 	Room* room2 = new Room();
 	room2->setDescription(0, "NORTH, room2");
 	room2->setDescription(1, "EAST, room2");
 	room2->setDescription(2, "SOUTH, room2");
 	room2->setDescription(3, "WEST, room2");
-	room2 = decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You rotated the wall. \n");
-	room2 = decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You rotated the wall. \n");
+	decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You rotated the wall. \n");
+	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You rotated the wall. \n");
 
 
 	Room *goal = new Room();
@@ -142,8 +162,9 @@ void Game::initLevel() {
 		new RoomState(),
 		new PlayerState(), // new state
 		new RoomState(),
-		text->getText(100)
+		"You won the game. "
 	));
+	setEventOnDoor(room2, NORTH, "You can see the goal, and runs like hell towards the light!");
 
 	connectRooms(currentRoom, room2, SOUTH);
 

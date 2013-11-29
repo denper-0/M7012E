@@ -14,7 +14,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 	switch(option) {
 	case DECORATE_ROTATE_ROOM_LEFT:
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			SWIPE_LEFT,
 			new PlayerState(NORTH), // current State
 			new RoomState(),
 			new PlayerState(WEST), // new state
@@ -22,7 +22,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(WEST)
 		));
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			SWIPE_LEFT,
 			new PlayerState(WEST), // current State
 			new RoomState(),
 			new PlayerState(SOUTH), // new state
@@ -30,7 +30,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(SOUTH)
 		));
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			SWIPE_LEFT,
 			new PlayerState(SOUTH), // current State
 			new RoomState(),
 			new PlayerState(EAST), // new state
@@ -38,7 +38,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(EAST)
 		));
 		r->setEvent(new Event(
-			ROTATE_LEFT,
+			SWIPE_LEFT,
 			new PlayerState(EAST), // current State
 			new RoomState(),
 			new PlayerState(NORTH), // new state
@@ -49,7 +49,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 		break;
 	case DECORATE_ROTATE_ROOM_RIGHT:
 		r->setEvent(new Event(
-			ROTATE_RIGHT,
+			SWIPE_RIGHT,
 			new PlayerState(NORTH), // current state
 			new RoomState(),
 			new PlayerState(EAST), // new state
@@ -57,7 +57,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(EAST)
 		));
 		r->setEvent(new Event(
-			ROTATE_RIGHT,
+			SWIPE_RIGHT,
 			new PlayerState(EAST), // current state
 			new RoomState(),
 			new PlayerState(SOUTH), // new state
@@ -65,7 +65,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(SOUTH)
 		));
 		r->setEvent(new Event(
-			ROTATE_RIGHT,
+			SWIPE_RIGHT,
 			new PlayerState(SOUTH), // current state
 			new RoomState(),
 			new PlayerState(WEST), // new state
@@ -73,7 +73,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 			text+r->getDescription(WEST)
 		));
 		r->setEvent(new Event(
-			ROTATE_RIGHT,
+			SWIPE_RIGHT,
 			new PlayerState(WEST), // current state
 			new RoomState(),
 			new PlayerState(NORTH), // new state
@@ -188,20 +188,20 @@ void Game::printText(std::string str){
 
 int Game::looper() {
 	MyLeapAction a;
-	std::vector<MyLeapAction> allowedActions;
-	
 	Room* nextRoom;
-
-	MyLeap* L;
-	L = new MyLeap();
+	MyLeap* L = new MyLeap();
 	std::vector<Event*> events;
 	std::vector<Event*> eventsOnNothingAction;
 	std::string output;
+
+	// first message
 	this->printText(text->getText(0));
+
 	while (true) {
-		allowedActions = currentRoom->getAllowedActions();
-		a = L->getAction(0, allowedActions);
+		// get input from user
+		a = L->getAction(0, currentRoom->getAllowedActions());
 		
+		// add events that will trigger regardless of input. 
 		if(a != NOTHING) {
 			eventsOnNothingAction = currentRoom->getEvents(NOTHING);
 			events = currentRoom->getEvents(a);
@@ -209,6 +209,8 @@ int Game::looper() {
 		} else {
 			events = currentRoom->getEvents(a);
 		}
+
+		// remove events that are not ment to be triggered regard to the states. 
 		for(size_t i=0; i < events.size(); i++) {
 			if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
 				
@@ -217,17 +219,25 @@ int Game::looper() {
 				i--;
 			}
 		}
+
+		// trigger the events. 
 		for(size_t i=0; i < events.size(); i++) {
 			currentPlayer->overWrite((events[i]->getNewPlayerstate()));
 			currentRoom->overWrite((events[i]->getNewRoomstate()));
 			output = events[i]->getText();
+
+			// print the events output. 
 			if(output.empty() == false) {
 				this->printText(output);
 			}
+
+			// change room if event is ment to do that. 
 			if(events[i]->getMoveToNextRoom()) {
 				nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
 				if(nextRoom != NULL) {
 					currentRoom = nextRoom;
+
+					// print next rooms description. 
 					this->printText(currentRoom->getDescription(currentPlayer->getFacing()));
 				}
 			}

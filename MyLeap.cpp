@@ -12,16 +12,24 @@ MyLeap::MyLeap(void)
 
 MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionList)
 {
+	// if not connected
 	MyLeapAction ret = NOT_CONNECTED;
 	if( !controller.isConnected()) {
 		return ret;
 	}
 	ret = NOTHING;
+	
+	// default hold time
+	if(backMs == 0) {
+		backMs = 1000;
+	}
+
 	Leap::Frame currentFrame = controller.frame();
 	Leap::Frame firstFrame = currentFrame;
 	int64_t currentID = currentFrame.id();
 	float instantaneousFrameRate = currentFrame.currentFramesPerSecond();
     
+	// foreach frame since last parsed frame
 	for( int history = 0; history < currentID - lastProcessedFrameID; history++)
     {
 		currentFrame = controller.frame(history);
@@ -29,7 +37,7 @@ MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionLis
 
 		// return if acceptable action was found
 		if(ret != NOTHING && ret != RANDOMSHIT) {
-			//
+			// ..if action is in actionList i.e we may return it
 			if(std::find(actionList.begin(), actionList.end(), ret) != actionList.end()) {
 				return ret;
 			}
@@ -49,42 +57,79 @@ MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionLis
 MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> actionList )
 {
     if( frame.id() == lastProcessedFrameID ) return NOTHING;
-    
-	// check only relevant spec. by actionList!
-	// ... 
 
-	// Get gestures
-	const Leap::GestureList gestures = frame.gestures();
-	for (int g = 0; g < gestures.count(); ++g) {
-		Leap::Gesture gesture = gestures[g];
-		switch (gesture.type()) {
-			case Leap::Gesture::TYPE_SWIPE: {
+	// if not hands or no tools or no fingers where in this frame nothing is. 
+	if( frame.hands().count() == 0 || frame.pointables().count() == 0 ) return NOTHING;
+
+	// if something is visable the user is doing something random, not random. 
+	MyLeapAction ret = RANDOMSHIT;
+
+	std::vector<float> directions;
+
+	// only check gestures if needed! (list all gesture based MyLeapActions)
+	if(actionIsInList(SWIPE_RIGHT, actionList)
+		|| actionIsInList(SWIPE_LEFT, actionList)) {
+		
+		// Get gestures
+		const Leap::GestureList gestures = frame.gestures();
+
+		// foreach gesture
+		for (int g = 0; g < gestures.count(); ++g) {
+
+			Leap::Gesture gesture = gestures[g];
+
+			// if it is a swipe gesture
+			if(gesture.type() == Leap::Gesture::TYPE_SWIPE) {
+			
 				Leap::SwipeGesture swipe = gesture;
 
+				// if the gesture is complete. 
 				if(gesture.state() == Leap::Gesture::STATE_STOP) {
-					if(swipe.direction().x > 0) {
-						//std::cout << "ROTATE_RIGHT";
-						return ROTATE_RIGHT;
+
+					// need to figure out what direction is moste dominent
+					if(abs(swipe.direction().x) > abs(swipe.direction().y) && abs(swipe.direction().x) > abs(swipe.direction().z)) {
+						// x is dominant movement direction
+						if(swipe.direction().x > 0) {
+							return SWIPE_RIGHT;
+						} else {
+							return SWIPE_LEFT;
+						}
+					} else if(abs(swipe.direction().y) > abs(swipe.direction().x) && abs(swipe.direction().y) > abs(swipe.direction().z)) {
+						// y is dominant movement direction
+						if(swipe.direction().y > 0) {
+							return SWIPE_FORWARD;
+						} else {
+							return SWIPE_BACKWARD;
+						}
+					} else if(abs(swipe.direction().z) > abs(swipe.direction().x) && abs(swipe.direction().z) > abs(swipe.direction().y)) {
+						// z is dominant movement direction
+						if(swipe.direction().z > 0) {
+							return SWIPE_UP;
+						} else {
+							return SWIPE_DOWN;
+						}
 					} else {
-						//std::cout << "ROTATE_LEFT";
-						return ROTATE_LEFT;
+						// wtf, user swiped super diagonaled perfect stuff! xD
 					}
+
 				}
-				break;
+				/*
 				std::cout << "Swipe id: " << gesture.id()
 					<< ", state: " << gesture.state()
 					<< ", direction: " << swipe.direction()
 					<< ", speed: " << swipe.speed() << std::endl;
-				
-				break;
+				*/
 			}
 		}
 	}
 
     lastProcessedFrameID = frame.id();
-	return NOTHING;
+	return ret;
 }
 
+bool MyLeap::actionIsInList(MyLeapAction action, std::vector<MyLeapAction> actionList) {
+	return std::find(actionList.begin(), actionList.end(), action) != actionList.end();
+}
 
 MyLeap::~MyLeap(void)
 {

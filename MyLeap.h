@@ -6,7 +6,37 @@
 #include <algorithm>
 #include <iostream>
 
-enum MyLeapAction { ROTATE_LEFT, ROTATE_RIGHT, NOT_CONNECTED, NOTHING, RANDOMSHIT };
+
+/*
+future MyLeapAction's:
+
+Number of fingers
+palms?
+ grep
+ release
+
+circle <direction><velocity><radius>
+ circle both hands <directrion><velocity><radius> <direction><velocity><radius>
+swipe <direction><velocity>
+ swipe both hands <directrion><velocity><direction><velocity>
+screen taps
+key taps
+no movement, but hand is visable
+NOTHING = nothing is visable
+
+
+*/
+enum MyLeapAction { 
+	SWIPE_RIGHT,
+	SWIPE_LEFT,
+	SWIPE_UP,
+	SWIPE_DOWN,
+	SWIPE_FORWARD,
+	SWIPE_BACKWARD,
+	NOT_CONNECTED, 
+	NOTHING, 
+	RANDOMSHIT 
+};
 
 class MyLeap
 {
@@ -15,6 +45,7 @@ public:
 	~MyLeap(void);
 	MyLeapAction getAction(float backMs, std::vector<MyLeapAction> actionList);
 private:
+	bool actionIsInList(MyLeapAction action, std::vector<MyLeapAction> actionList);
 	int64_t lastProcessedFrameID;
 	Leap::Controller controller;
 	MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> actionList );

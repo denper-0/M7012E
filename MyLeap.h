@@ -8,6 +8,27 @@
 
 
 /*
+open door:
+ grep+pull or grep+push
+
+pick up item:
+ grep+pull up
+
+open inventory:
+ turn palm upwards
+browse items:
+ swipe while palm upsidedown
+select item:
+ grep
+
+navigate: 
+ left: swipe left
+ right: swipe right
+ forward: 
+
+HP = FRIENDS IN PARTY! :D
+
+
 future MyLeapAction's:
 
 Number of fingers
@@ -26,7 +47,7 @@ NOTHING = nothing is visable
 
 
 */
-enum MyLeapAction { 
+enum MyLeapAction {
 	SWIPE_RIGHT,
 	SWIPE_LEFT,
 	SWIPE_UP,

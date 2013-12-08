@@ -2,9 +2,9 @@
 #include "Room.h"
 
 
-Room::Room(void) {
+Room::Room(int roomId) {
 	currentRoomState = new RoomState();
-	
+	this->roomId = roomId;
 }
 
 Room::~Room(void) {
@@ -77,6 +77,11 @@ bool Room::isEqual(State* s) {
 	}
 	return true;
 }
+
+int Room::getRoomId() {
+	return roomId;
+}
+
 /*
 void Room::tomte() {
   

@@ -9,6 +9,8 @@ Event::Event(MyLeapAction a, PlayerState* current_PS, RoomState* current_RS, Pla
 	new_RS = newRS;
 	eventText = eText;
 	moveToNextRoom = false;
+	barelyEscapable = false;
+	Room* barelyEscapableRoom = NULL;
 }
 
 Event::~Event(void) {
@@ -56,4 +58,19 @@ bool Event::getMoveToNextRoom() {
 }
 void Event::setMoveToNextRoom(bool isOnThisEvent) {
 	moveToNextRoom = isOnThisEvent;
+}
+
+bool Event::isBarelyEscapable() {
+	return barelyEscapable;
+}
+void Event::setBarelyEscapable(Room *barelyEscapableRoom) {
+	this->barelyEscapableRoom = barelyEscapableRoom;
+	if(barelyEscapableRoom != NULL) {
+		barelyEscapable = true;
+	} else{
+		barelyEscapable = false;
+	}
+}
+Room* Event::getBarelyEscapableRoom() {
+	return barelyEscapableRoom;
 }

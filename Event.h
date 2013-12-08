@@ -20,6 +20,8 @@ private:
 	RoomState* cur_RS;
 	RoomState* new_RS;
 	bool moveToNextRoom;
+	bool barelyEscapable;
+	Room* barelyEscapableRoom;
 
 public:
 	Event(MyLeapAction, PlayerState*, RoomState*, PlayerState*, RoomState*, std::string);
@@ -35,5 +37,8 @@ public:
 	MyLeapAction getAction();
 	bool getMoveToNextRoom();
 	void setMoveToNextRoom(bool isOnThisEvent);
+	bool isBarelyEscapable();
+	void setBarelyEscapable(Room *barelyEscapableRoom);
+	Room* Event::getBarelyEscapableRoom();
 };
 

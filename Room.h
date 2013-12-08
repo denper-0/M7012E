@@ -24,8 +24,9 @@ private:
 	std::vector<MyLeapAction> allowedActions;
 	std::vector<std::string> onActionOutput;
 	enum {START,NORMAL,GOAL} roomType;
+	int roomId;
 public:
-	Room(void);
+	Room(int id);
 	~Room(void);
 	void setDescription(int rd, std::string description);
 	std::string getDescription(int rd);
@@ -37,6 +38,8 @@ public:
 	Room* getDoor(int);
 
 	std::vector<MyLeapAction> getAllowedActions();
+
+	int getRoomId();
 	
 	virtual void overWrite(State* s); // must be implemented
 	virtual bool isEqual(State* s); // must be implemented

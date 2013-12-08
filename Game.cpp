@@ -89,7 +89,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 void Game::setEventOnDoor(Room* r, int direction, std::string output) {
 	Event* e;
 	e = new Event(
-		NOTHING,
+		SWIPE_FORWARD,
 		new PlayerState(direction), // current state
 		new RoomState(),
 		new PlayerState(), // new state
@@ -126,36 +126,48 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 void Game::initLevel() {
 	currentPlayer = new Player();
 
-	currentRoom = new Room();
-	Event* e = new Event(
-		NOTHING,
-		new PlayerState(SOUTH), // current state
+	currentRoom = new Room(1);
+
+	currentRoom->setDescription(0, text->getText(1));
+	currentRoom->setDescription(1, text->getText(2));
+	currentRoom->setDescription(2, text->getText(3));
+	currentRoom->setDescription(3, text->getText(4));
+	currentRoom->setDescription(4, text->getText(5));
+	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
+	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
+
+	Event* e = new Event(SWIPE_DOWN,
+		new PlayerState(),
 		new RoomState(),
-		new PlayerState(), // new state
+		new PlayerState(),
 		new RoomState(),
-		text->getText(10)
+		"You opened inventory. "
 	);
-	e->setMoveToNextRoom(true);
+	Room* inventory = new Room(2);
+	e->setBarelyEscapable(inventory);
 	currentRoom->setEvent(e);
 
+	e = new Event(SWIPE_DOWN,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"You closed inventory. "
+	);
+	e->setMoveToNextRoom(true);
+	inventory->setEvent(e);
 
-	currentRoom->setDescription(0, "NORTH");
-	currentRoom->setDescription(1, "EAST");
-	currentRoom->setDescription(2, "SOUTH");
-	currentRoom->setDescription(3, "WEST");
-	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\nFacing: ");
-	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\nFacing: ");
-
-	Room* room2 = new Room();
+	Room* room2 = new Room(3);
 	room2->setDescription(0, "NORTH, room2");
 	room2->setDescription(1, "EAST, room2");
 	room2->setDescription(2, "SOUTH, room2");
 	room2->setDescription(3, "WEST, room2");
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You rotated the wall. \n");
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You rotated the wall. \n");
+	
+	connectRooms(currentRoom, room2, SOUTH);
 
-
-	Room *goal = new Room();
+	Room *goal = new Room(4);
 	goal->setEvent(new Event(
 		NOTHING,
 		new PlayerState(), // current state
@@ -166,7 +178,6 @@ void Game::initLevel() {
 	));
 	setEventOnDoor(room2, NORTH, "You can see the goal, and runs like hell towards the light!");
 
-	connectRooms(currentRoom, room2, SOUTH);
 
 	room2->setDoor(NORTH, goal); // no way back ^^
 }
@@ -179,7 +190,7 @@ void Game::printText(std::string str){
     std::cout << str[i];
     if((i + 1) < str.length() && str[i+1] != '\n')
       std::cout << char(219);
-    Sleep(50);
+    Sleep(20);
     if((i + 1) < str.length() && str[i+1] != '\n')
       std::cout << char(8);
   }
@@ -189,60 +200,108 @@ void Game::printText(std::string str){
 int Game::looper() {
 	MyLeapAction a;
 	Room* nextRoom;
-	MyLeap* L = new MyLeap();
+	L = new MyLeap();
 	std::vector<Event*> events;
 	std::vector<Event*> eventsOnNothingAction;
 	std::string output;
+	std::vector<MyLeapAction> actions;
 
+
+
+	Room* barelyEscapableRoom;
+	bool hasEscaped = false;
 	// first message
 	this->printText(text->getText(0));
 
-	while (true) {
-		// get input from user
-		a = L->getAction(0, currentRoom->getAllowedActions());
-		
-		// add events that will trigger regardless of input. 
-		if(a != NOTHING) {
-			eventsOnNothingAction = currentRoom->getEvents(NOTHING);
-			events = currentRoom->getEvents(a);
-			events.insert( events.end(), eventsOnNothingAction.begin(), eventsOnNothingAction.end() );
+	nextRoom = currentRoom;
+	while(true) {
+		if(currentRoom != NULL) {
+			nextRoom = currentRoom;
+			currentRoom = runLoopOnRoom(currentRoom);
 		} else {
-			events = currentRoom->getEvents(a);
+			currentRoom = nextRoom;
 		}
+	}
+}
 
-		// remove events that are not ment to be triggered regard to the states. 
-		for(size_t i=0; i < events.size(); i++) {
-			if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
+Room* Game::runLoopOnRoom(Room *currentRoom) {
+	MyLeapAction a;
+	Room* nextRoom;
+	std::vector<Event*> events;
+	std::vector<Event*> eventsOnNothingAction;
+	std::string output;
+	
+	std::vector<MyLeapAction> actions;
+
+	Room* barelyEscapableRoom;
+	bool hasEscaped = false;
+
+	// get input from user
+	actions = currentRoom->getAllowedActions();
+	a = L->getAction(0, actions);
+		
+	// add events that will trigger regardless of input. 
+	if(a != NOTHING) {
+		eventsOnNothingAction = currentRoom->getEvents(NOTHING);
+		events = currentRoom->getEvents(a);
+		events.insert( events.end(), eventsOnNothingAction.begin(), eventsOnNothingAction.end() );
+	} else {
+		events = currentRoom->getEvents(a);
+	}
+
+	// remove events that are not ment to be triggered regard to the states. 
+	for(size_t i=0; i < events.size(); i++) {
+		if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
 				
-			} else {
-				events.erase(events.begin()+i);
-				i--;
-			}
+		} else {
+			events.erase(events.begin()+i);
+			i--;
+		}
+	}
+
+	// trigger the events. 
+	for(size_t i=0; i < events.size(); i++) {
+		currentPlayer->overWrite((events[i]->getNewPlayerstate()));
+		currentRoom->overWrite((events[i]->getNewRoomstate()));
+		output = events[i]->getText();
+
+		// print the events output. 
+		if(output.empty() == false) {
+			this->printText(output);
 		}
 
-		// trigger the events. 
-		for(size_t i=0; i < events.size(); i++) {
-			currentPlayer->overWrite((events[i]->getNewPlayerstate()));
-			currentRoom->overWrite((events[i]->getNewRoomstate()));
-			output = events[i]->getText();
+		// change room if event is ment to do that. 
+		if(events[i]->getMoveToNextRoom()) {
+			nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
+			if(nextRoom != NULL) {
+				currentRoom = nextRoom;
 
-			// print the events output. 
-			if(output.empty() == false) {
-				this->printText(output);
+				// print next rooms description. 
+				this->printText(currentRoom->getDescription(NO_DIRECTION)); // print general description
+				this->printText(currentRoom->getDescription(currentPlayer->getFacing())); // print facing description
+
+				// break loop, no event carry over plz!
+				i=events.size();
+			} else {
+				return NULL;
 			}
+		} else if(events[i]->isBarelyEscapable()) {
+			barelyEscapableRoom = events[i]->getBarelyEscapableRoom();
+			hasEscaped = false;
+			while(hasEscaped == false) {
+				//this->printText("LOL TRY TO ESCAPE!");
 
-			// change room if event is ment to do that. 
-			if(events[i]->getMoveToNextRoom()) {
-				nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
-				if(nextRoom != NULL) {
-					currentRoom = nextRoom;
+				barelyEscapableRoom = this->runLoopOnRoom(barelyEscapableRoom);
 
-					// print next rooms description. 
-					this->printText(currentRoom->getDescription(currentPlayer->getFacing()));
+				if(barelyEscapableRoom == NULL) {
+					return currentRoom;
+				}
+
+				if(barelyEscapableRoom->getRoomId() == currentRoom->getRoomId()) {
+					return currentRoom;
 				}
 			}
 		}
 	}
-	return 0;
-
+	return currentRoom;
 }

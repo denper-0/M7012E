@@ -3,7 +3,7 @@
 
 RoomState::RoomState(void)
 {
-	description.resize(4);
+	description.resize(5);
 	items.resize(5);
 	doors.resize(4);
 }

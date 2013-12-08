@@ -24,7 +24,7 @@ select item:
 navigate: 
  left: swipe left
  right: swipe right
- forward: 
+ forward: poke
 
 HP = FRIENDS IN PARTY! :D
 

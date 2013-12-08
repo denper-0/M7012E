@@ -1,7 +1,7 @@
 You're standing in the middle of the storm. You're standing outside a house facing its entrance, it looks dark and horrifying. Considering the storm you have no choice but to seek shelter and enter.
-You're facing the entrance.
-You see powerlines on the ground and no place to go.
-A loooooooong daaaaaaark roooaad...
+NORTH, You see powerlines on the ground and no place to go.
+EAST, A loooooooong daaaaaaark roooaad...
+SOUTH, You're facing the entrance.
 Fallen trees makes it impossible for an escape.
 You've entered the hallway. You see a big golden lamp hanging from the roof dangling. The lightbulbs seems to be broken.
 It is to dark to see what is in this direction.

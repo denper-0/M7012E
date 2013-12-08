@@ -44,7 +44,7 @@ MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionLis
 		}
 
 		// return if we have checked relevant history spec. by BackMs
-		if((currentFrame.timestamp() - firstFrame.timestamp()) > backMs) {
+		if((currentFrame.timestamp() - firstFrame.timestamp()) > backMs || history > 1000) {
 			return ret;
 		}
     }
@@ -68,7 +68,11 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 
 	// only check gestures if needed! (list all gesture based MyLeapActions)
 	if(actionIsInList(SWIPE_RIGHT, actionList)
-		|| actionIsInList(SWIPE_LEFT, actionList)) {
+		|| actionIsInList(SWIPE_LEFT, actionList)
+		|| actionIsInList(SWIPE_UP, actionList)
+		|| actionIsInList(SWIPE_DOWN, actionList)
+		|| actionIsInList(SWIPE_FORWARD, actionList)
+		|| actionIsInList(SWIPE_BACKWARD, actionList)) {
 		
 		// Get gestures
 		const Leap::GestureList gestures = frame.gestures();
@@ -84,7 +88,7 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 				Leap::SwipeGesture swipe = gesture;
 
 				// if the gesture is complete. 
-				if(gesture.state() == Leap::Gesture::STATE_STOP) {
+				if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
 
 					// need to figure out what direction is moste dominent
 					if(abs(swipe.direction().x) > abs(swipe.direction().y) && abs(swipe.direction().x) > abs(swipe.direction().z)) {
@@ -97,16 +101,16 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 					} else if(abs(swipe.direction().y) > abs(swipe.direction().x) && abs(swipe.direction().y) > abs(swipe.direction().z)) {
 						// y is dominant movement direction
 						if(swipe.direction().y > 0) {
-							return SWIPE_FORWARD;
+							return SWIPE_UP;
 						} else {
-							return SWIPE_BACKWARD;
+							return SWIPE_DOWN;
 						}
 					} else if(abs(swipe.direction().z) > abs(swipe.direction().x) && abs(swipe.direction().z) > abs(swipe.direction().y)) {
 						// z is dominant movement direction
 						if(swipe.direction().z > 0) {
-							return SWIPE_UP;
+							return SWIPE_BACKWARD;
 						} else {
-							return SWIPE_DOWN;
+							return SWIPE_FORWARD;
 						}
 					} else {
 						// wtf, user swiped super diagonaled perfect stuff! xD

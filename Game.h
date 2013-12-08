@@ -23,6 +23,7 @@ public:
 	int looper();
 	void printText(std::string str);
 private:
+	MyLeap* L;
 	Room* currentRoom;
 	Player* currentPlayer;
 	Gametext *text;
@@ -30,5 +31,6 @@ private:
 	void decorateRoom(Room *r, int options, std::string texts);
 	void connectRooms(Room *r1, Room *r2, int firstRoomsDirection);
 	void setEventOnDoor(Room* r, int direction, std::string output = "");
+	Room* Game::runLoopOnRoom(Room *);
 };
 

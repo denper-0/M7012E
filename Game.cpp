@@ -136,7 +136,7 @@ void Game::initLevel() {
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
 
-	Event* e = new Event(SWIPE_DOWN,
+	Event* InventoryEvent = new Event(SWIPE_UP,
 		new PlayerState(),
 		new RoomState(),
 		new PlayerState(),
@@ -144,10 +144,10 @@ void Game::initLevel() {
 		"You opened inventory. "
 	);
 	Room* inventory = new Room(2);
-	e->setBarelyEscapable(inventory);
-	currentRoom->setEvent(e);
+	InventoryEvent->setBarelyEscapable(inventory);
+	currentRoom->setEvent(InventoryEvent);
 
-	e = new Event(SWIPE_DOWN,
+	Event* e = new Event(SWIPE_DOWN,
 		new PlayerState(),
 		new RoomState(),
 		new PlayerState(),
@@ -162,6 +162,7 @@ void Game::initLevel() {
 	room2->setDescription(1, "EAST, room2");
 	room2->setDescription(2, "SOUTH, room2");
 	room2->setDescription(3, "WEST, room2");
+	room2->setEvent(InventoryEvent);
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You rotated the wall. \n");
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You rotated the wall. \n");
 	

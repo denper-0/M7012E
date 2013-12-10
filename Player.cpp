@@ -52,3 +52,12 @@ void Player::setCurrentToNextItem(bool iterateUp) {
 		}
 	}
 }
+
+
+void Player::addToInventory(int i, int itemId) {
+	currentState->setItem(i,itemId);
+}
+
+int Player::getCurrentItem() {
+	return currentState->getCurrentItemSelected();
+}

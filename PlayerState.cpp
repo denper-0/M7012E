@@ -6,6 +6,7 @@ PlayerState::PlayerState(int f, int itemId, int HP)
 	facing = f;
 	items.push_back(itemId);
 	this->HP = HP;
+	currentItemSelected = 0;
 }
 
 

@@ -3,6 +3,7 @@
 
 Game::Game(void) {
 	text = new Gametext();
+	itemText = new Gametext("items.txt");
 }
 
 
@@ -125,6 +126,12 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 
 void Game::initLevel() {
 	currentPlayer = new Player();
+	
+	currentPlayer->addToInventory(0,0);
+	currentPlayer->addToInventory(1,1);
+	currentPlayer->addToInventory(2,2);
+	currentPlayer->addToInventory(3,3);
+	currentPlayer->addToInventory(4,4);
 
 	currentRoom = new Room(1);
 
@@ -141,8 +148,9 @@ void Game::initLevel() {
 		new RoomState(),
 		new PlayerState(),
 		new RoomState(),
-		"You opened inventory. "
+		"You opened inventory.\nCurrent item: "
 	);
+	InventoryEvent->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
 	Room* inventory = new Room(2);
 	InventoryEvent->setBarelyEscapable(inventory);
 	currentRoom->setEvent(InventoryEvent);
@@ -166,6 +174,7 @@ void Game::initLevel() {
 		"Current item: "
 	);
 	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_LEFT);
+	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
 	inventory->setEvent(e);
 	e = new Event(
 		SWIPE_RIGHT,
@@ -176,6 +185,7 @@ void Game::initLevel() {
 		"Current item: "
 	);
 	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_RIGHT);
+	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
 	inventory->setEvent(e);
 
 	Room* room2 = new Room(3);
@@ -296,10 +306,13 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 			case ON_EVENT_NO_ACTION:
 				break;
 			case ON_EVENT_ITERATE_ITEMS_LEFT:
-				currentPlayer->setCurrentToNextItem(true);
+				currentPlayer->setCurrentToNextItem(false);
 				break;
 			case ON_EVENT_ITERATE_ITEMS_RIGHT:
-				currentPlayer->setCurrentToNextItem(false);
+				currentPlayer->setCurrentToNextItem(true);
+				break;
+			case ON_EVENT_PRINT_CURRENT_ITEM:
+				output += itemText->getText(currentPlayer->getCurrentItem());
 				break;
 			default:
 				break;

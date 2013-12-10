@@ -16,9 +16,10 @@ public:
 	int getFacing();
 	void setFacing(int facing);
 	std::string getInventory();
-	void addToInventory(int);
-	void removeToInventory(int);
+	void addToInventory(int, int);
+	void removeFromInventory(int);
 	void setCurrentToNextItem(bool);
+	int getCurrentItem();
 	virtual void overWrite(State* s); // must be implemented
 	virtual bool isEqual(State* s); // must be implemented
 

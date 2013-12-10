@@ -9,6 +9,7 @@ class RoomState : public State
 {
 private: 
 	std::vector<int> items;
+	std::vector<int> itemsToRemove;
 	std::vector<Room*> doors;
 	std::vector<std::string> description;
 

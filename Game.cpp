@@ -156,14 +156,27 @@ void Game::initLevel() {
 	);
 	e->setMoveToNextRoom(true);
 	inventory->setEvent(e);
-	inventory->setEvent(new Event(
+
+	e = new Event(
 		SWIPE_LEFT,
 		new PlayerState(),
 		new RoomState(),
 		new PlayerState(),
 		new RoomState(),
-		"You opened inventory. "
-	));
+		"Current item: "
+	);
+	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_LEFT);
+	inventory->setEvent(e);
+	e = new Event(
+		SWIPE_RIGHT,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"Current item: "
+	);
+	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_RIGHT);
+	inventory->setEvent(e);
 
 	Room* room2 = new Room(3);
 	room2->setDescription(0, "NORTH, room2");
@@ -237,6 +250,7 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 	MyLeapAction a;
 	Room* nextRoom;
 	std::vector<Event*> events;
+	std::vector<OnEventAction> eventActions;
 	std::vector<Event*> eventsOnNothingAction;
 	std::string output;
 	
@@ -275,6 +289,22 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 		currentPlayer->overWrite((events[i]->getNewPlayerstate()));
 		currentRoom->overWrite((events[i]->getNewRoomstate()));
 		output = events[i]->getText();
+
+		eventActions = events[i]->getActionOnEvent();
+		for(size_t j=0; j < eventActions.size(); j++) {
+			switch (eventActions[j]) {
+			case ON_EVENT_NO_ACTION:
+				break;
+			case ON_EVENT_ITERATE_ITEMS_LEFT:
+				currentPlayer->setCurrentToNextItem(true);
+				break;
+			case ON_EVENT_ITERATE_ITEMS_RIGHT:
+				currentPlayer->setCurrentToNextItem(false);
+				break;
+			default:
+				break;
+			}
+		}
 
 		// print the events output. 
 		if(output.empty() == false) {

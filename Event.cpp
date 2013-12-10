@@ -74,3 +74,10 @@ void Event::setBarelyEscapable(Room *barelyEscapableRoom) {
 Room* Event::getBarelyEscapableRoom() {
 	return barelyEscapableRoom;
 }
+
+void Event::setActionOnEvent(OnEventAction action) {
+	this->eventActions.push_back(action);
+}
+std::vector<OnEventAction> Event::getActionOnEvent() {
+	return this->eventActions;
+}

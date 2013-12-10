@@ -31,6 +31,10 @@ private:
 	void decorateRoom(Room *r, int options, std::string texts);
 	void connectRooms(Room *r1, Room *r2, int firstRoomsDirection);
 	void setEventOnDoor(Room* r, int direction, std::string output = "");
+	/**
+	*	@breif runLoopOnRoom
+		@return Room*  sometimes NULL used to indicating for barelyEscapableEvent when it is escaped. Otherwise the current Room. 
+	*/
 	Room* Game::runLoopOnRoom(Room *);
 };
 

@@ -4,7 +4,7 @@
 PlayerState::PlayerState(int f, int itemId, int HP)
 {
 	facing = f;
-	this->itemId = itemId;
+	items.push_back(itemId);
 	this->HP = HP;
 }
 
@@ -18,4 +18,12 @@ int PlayerState::getFacing(void) {
 }
 void PlayerState::setFacing(int f) {
 	facing = f;
+}
+
+
+void PlayerState::setCurrentItemSelected(int itemId) {
+	currentItemSelected = itemId;
+}
+int PlayerState::getCurrentItemSelected() {
+	return currentItemSelected;
 }

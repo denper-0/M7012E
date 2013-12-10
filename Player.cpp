@@ -29,3 +29,26 @@ bool Player::isEqual(State* s) {
 	}
 	return true;
 }
+
+void Player::setCurrentToNextItem(bool iterateUp) {
+	int itemId = currentState->getCurrentItemSelected();
+	std::vector<int> itemsInInventory = currentState->getItems();
+	for (unsigned i=0; i<itemsInInventory.size(); i++) {
+		if(itemsInInventory.at(i) == itemId) {
+			if(iterateUp == true) {
+				if(itemsInInventory.size() > i+1) {
+					currentState->setCurrentItemSelected(itemsInInventory.at(i+1));
+				} else {
+					currentState->setCurrentItemSelected(itemsInInventory.at(0));
+				}
+			} else {
+				if(i == 0) {
+					currentState->setCurrentItemSelected(itemsInInventory.at(itemsInInventory.size()-1));
+				} else {
+					currentState->setCurrentItemSelected(itemsInInventory.at(i-1));
+				}
+			}
+			return;
+		}
+	}
+}

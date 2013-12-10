@@ -33,6 +33,7 @@ private:
 	Room* barelyEscapableRoom;
 	std::vector<OnEventAction> eventActions;
 
+
 public:
 	Event(MyLeapAction, PlayerState*, RoomState*, PlayerState*, RoomState*, std::string);
 	~Event(void);
@@ -49,6 +50,8 @@ public:
 	void setMoveToNextRoom(bool isOnThisEvent);
 	bool isBarelyEscapable();
 	void setBarelyEscapable(Room *barelyEscapableRoom);
-	Room* Event::getBarelyEscapableRoom();
+	Room* getBarelyEscapableRoom();
+	void setActionOnEvent(OnEventAction action);
+	std::vector<OnEventAction> getActionOnEvent();
 };
 

@@ -18,6 +18,7 @@ public:
 	std::string getInventory();
 	void addToInventory(int);
 	void removeToInventory(int);
+	void setCurrentToNextItem(bool);
 	virtual void overWrite(State* s); // must be implemented
 	virtual bool isEqual(State* s); // must be implemented
 

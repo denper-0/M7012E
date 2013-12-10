@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 //#include "MyLeap.h"
 //#include "RoomState.h"
 //#include "PlayerState.h"
@@ -9,6 +10,14 @@ class RoomState;
 class PlayerState;
 class Room;
 enum MyLeapAction;
+
+enum OnEventAction {
+	ON_EVENT_NO_ACTION,
+	ON_EVENT_ITERATE_ITEMS_LEFT,
+	ON_EVENT_ITERATE_ITEMS_RIGHT,
+	ON_EVENT_ITERATE_FACING_LEFT,
+	ON_EVENT_ITERATE_FACING_RIGHT
+};
 
 class Event
 {
@@ -22,6 +31,7 @@ private:
 	bool moveToNextRoom;
 	bool barelyEscapable;
 	Room* barelyEscapableRoom;
+	std::vector<OnEventAction> eventActions;
 
 public:
 	Event(MyLeapAction, PlayerState*, RoomState*, PlayerState*, RoomState*, std::string);

@@ -156,6 +156,14 @@ void Game::initLevel() {
 	);
 	e->setMoveToNextRoom(true);
 	inventory->setEvent(e);
+	inventory->setEvent(new Event(
+		SWIPE_LEFT,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"You opened inventory. "
+	));
 
 	Room* room2 = new Room(3);
 	room2->setDescription(0, "NORTH, room2");
@@ -262,6 +270,8 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 
 	// trigger the events. 
 	for(size_t i=0; i < events.size(); i++) {
+
+		// The actions
 		currentPlayer->overWrite((events[i]->getNewPlayerstate()));
 		currentRoom->overWrite((events[i]->getNewRoomstate()));
 		output = events[i]->getText();

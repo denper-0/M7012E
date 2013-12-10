@@ -12,8 +12,9 @@ private:
 	std::vector<int> items;
 	int facing;
 	int HP;
+	int itemId;
 public:
-	PlayerState(int facing = 4);
+	PlayerState(int facing = 4, int itemId = 0, int HP = 0);
 	~PlayerState(void);
 	int getFacing(void);
 	void setFacing(int f);

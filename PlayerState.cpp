@@ -1,9 +1,11 @@
 #include "PlayerState.h"
 
 
-PlayerState::PlayerState(int f)
+PlayerState::PlayerState(int f, int itemId, int HP)
 {
 	facing = f;
+	this->itemId = itemId;
+	this->HP = HP;
 }
 
 

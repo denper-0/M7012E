@@ -3,7 +3,7 @@
 
 Game::Game(void) {
 	generalText = new Gametext("generalText.txt");
-	descText = new Gametext();
+	descText = new Gametext("descText.txt");
 	itemText = new Gametext("items.txt");
 }
 
@@ -198,10 +198,10 @@ void Game::initLevel() {
 
 	currentRoom = new Room(1);
 
-	currentRoom->setDescription(0, descText->getText(1));
-	currentRoom->setDescription(1, descText->getText(2));
-	currentRoom->setDescription(2, descText->getText(3));
-	currentRoom->setDescription(3, descText->getText(4));
+	currentRoom->setDescription(0, descText->getText(0));
+	currentRoom->setDescription(1, descText->getText(1));
+	currentRoom->setDescription(2, descText->getText(2));
+	currentRoom->setDescription(3, descText->getText(3));
 	
 	currentRoom->setEvent(InventoryEvent);
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
@@ -209,39 +209,39 @@ void Game::initLevel() {
 
 	/**CREATION OF SECOND ROOM**/
 
-	Room* room2 = new Room(3);
-	room2->setDescription(0, "NORTH, room2");
-	room2->setDescription(1, "EAST, room2");
-	room2->setDescription(2, "SOUTH, room2");
-	room2->setDescription(3, "WEST, room2");
+	Room* room2 = new Room(2);
+	room2->setDescription(0, descText->getText(4));
+	room2->setDescription(1, descText->getText(5));
+	room2->setDescription(2, descText->getText(6));
+	room2->setDescription(3, descText->getText(7));
 	room2->setDescription(4,generalText->getText(1));
 	room2->setEvent(InventoryEvent);
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
 	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You turned right. \n");
 	
-	connectRooms(currentRoom, room2, SOUTH);
+	connectRooms(currentRoom, room2, EAST);
 
 	/**CREATION OF THIRD ROOM**/
 
-	Room* room3 = new Room(4);
-	room3->setDescription(0, "NORTH, room3");
-	room3->setDescription(1, "EAST, room3");
-	room3->setDescription(2, "SOUTH, room3");
-	room3->setDescription(3, "WEST, room3");
+	Room* room3 = new Room(2);
+	room3->setDescription(0, descText->getText(8));
+	room3->setDescription(1, descText->getText(9));
+	room3->setDescription(2, descText->getText(10));
+	room3->setDescription(3, descText->getText(11));
 	room3->setDescription(4, generalText->getText(2));
 	room3->setEvent(InventoryEvent);
 	decorateRoom(room3, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
 	decorateRoom(room3, DECORATE_ROTATE_ROOM_RIGHT, "You turned right. \n");
 	
-	connectRooms(room2, room3, WEST);
+	connectRooms(room2, room3, EAST);
 
 	/**CREATION OF FOURTH ROOM**/
 
 	Room* room4 = new Room(1);
-	room4->setDescription(0, "NORTH, room4");
-	room4->setDescription(1, "EAST, room4");
-	room4->setDescription(2, "SOUTH, room4");
-	room4->setDescription(3, "WEST, room4");
+	room4->setDescription(0, descText->getText(16));
+	room4->setDescription(1, descText->getText(17));
+	room4->setDescription(2, descText->getText(18));
+	room4->setDescription(3, descText->getText(19));
 	room4->setDescription(4,generalText->getText(3));
 	room4->setEvent(InventoryEvent);
 	decorateRoom(room4, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
@@ -252,10 +252,10 @@ void Game::initLevel() {
 	/**CREATION OF FIFTH ROOM**/
 
 	Room* room5 = new Room(2);
-	room5->setDescription(0, "NORTH, room5");
-	room5->setDescription(1, "EAST, room5");
-	room5->setDescription(2, "SOUTH, room5");
-	room5->setDescription(3, "WEST, room5");
+	room5->setDescription(0, descText->getText(12));
+	room5->setDescription(1, descText->getText(13));
+	room5->setDescription(2, descText->getText(14));
+	room5->setDescription(3, descText->getText(15));
 	room5->setDescription(4, generalText->getText(4));
 	room5->setEvent(InventoryEvent);
 	decorateRoom(room5, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");

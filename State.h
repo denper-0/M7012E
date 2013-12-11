@@ -10,6 +10,7 @@ protected:
 public:
 	void setItem(int i, int itemId);
 	std::vector<int> getItems();
+	int getItem(int);
 	void setItemToRemove(int i, int itemId);
 	std::vector<int> getItemsToRemove();
 

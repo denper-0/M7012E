@@ -186,6 +186,7 @@ Event* Game::createInventory() {
 void Game::initLevel() {
 	
 	Event* InventoryEvent  = Game::createInventory();
+	Event* e;
 	
 	currentPlayer = new Player();
 	currentPlayer->addToInventory(0,0);
@@ -244,6 +245,23 @@ void Game::initLevel() {
 	room4->setDescription(3, descText->getText(19));
 	room4->setDescription(4,generalText->getText(3));
 	room4->setEvent(InventoryEvent);
+
+	room4->setItem(0,1);
+	RoomState* rs = new RoomState();
+	RoomState* rs2 = new RoomState();
+	rs->setItem(0, 1);
+	//rs2->getItemsToRemove();
+	rs2->setDesc(EAST, "no key here anymore. ");
+	e = new Event(
+		KEY_TAP,
+		new PlayerState(EAST),
+		rs,
+		new PlayerState(),
+		rs2,
+		"You picked up "+itemText->getText(1)
+	);
+	room4->setEvent(e);
+
 	decorateRoom(room4, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
 	decorateRoom(room4, DECORATE_ROTATE_ROOM_RIGHT, "You turned right.. \n");
 	
@@ -272,8 +290,8 @@ void Game::initLevel() {
 		new RoomState(),
 		"You won the game. "
 	));
-	setEventOnDoor(room5, EAST, "You can see the goal, and runs like hell towards the light!");
-	room5->setDoor(EAST, goal); // no way back ^^
+	setEventOnDoor(currentRoom, SOUTH, "You can see the goal, and runs like hell towards the light!");
+	currentRoom->setDoor(SOUTH, goal); // no way back ^^
 }
 
 void Game::printText(std::string str){

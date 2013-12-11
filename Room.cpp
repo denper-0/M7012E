@@ -47,6 +47,10 @@ Room* Room::getDoor(int rd) {
 	return currentRoomState->getDoor(rd);
 }
 
+void Room::setItem(int i, int itemId) {
+	currentRoomState->setItem(i, itemId);
+}
+
 
 void Room::overWrite(State* s) {
 	RoomState* rs = static_cast<RoomState*>(s); // typecast
@@ -72,6 +76,11 @@ bool Room::isEqual(State* s) {
 	}
 	for(size_t i =0; i < 4; i++) {
 		if(rs->getDesc(i) != "" && rs->getDesc(i) != this->getDescription(i)) {
+			return false;
+		}
+	}
+	for(size_t i =0; i < currentRoomState->getItems().size(); i++) {
+		if(rs->getItem(i) != NULL && rs->getItem(i) != this->currentRoomState->getItem(i)) {
 			return false;
 		}
 	}

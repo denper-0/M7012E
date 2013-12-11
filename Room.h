@@ -40,6 +40,8 @@ public:
 	std::vector<MyLeapAction> getAllowedActions();
 
 	int getRoomId();
+
+	void setItem(int i, int itemId);
 	
 	virtual void overWrite(State* s); // must be implemented
 	virtual bool isEqual(State* s); // must be implemented

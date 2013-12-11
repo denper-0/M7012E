@@ -11,6 +11,9 @@ void State::setItem(int i, int itemId) {
 std::vector<int> State::getItems() {
 	return this->items;
 }
+int State::getItem(int i) {
+	return this->items.at(i);
+}
 void State::setItemToRemove(int i, int itemId) {
 	this->itemsToRemove[i] = itemId;
 }

@@ -125,19 +125,58 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 	}
 }
 
-Event* Game::createInventory(){
+Event* Game::createInventory() {
 
+	// create inventory "room"
+	Room* inventory = new Room(0);
+
+	// add close inventory
+	Event* e = new Event(SWIPE_DOWN,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"You closed inventory. "
+	);
+	e->setMoveToNextRoom(true);
+	inventory->setEvent(e);
+	
+	// add iterate up
+	e = new Event(
+		CIRCLE_CLOCKWISE,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"Current item in hand: "
+	);
+	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_LEFT);
+	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
+	inventory->setEvent(e);
+	
+	// add iterate down
+	e = new Event(
+		CIRCLE_COUNTER_CLOCKWISE,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"Current item in hand: "
+	);
+	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_RIGHT);
+	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
+	inventory->setEvent(e);
+
+	// create event for opening inventory
 	Event* InventoryEvent = new Event(
 		SWIPE_UP,
 		new PlayerState(),
 		new RoomState(),
 		new PlayerState(),
 		new RoomState(),
-		"You opened inventory.\nCurrent item: "
+		"You opened inventory.\nCurrent item in hand: "
 	);
-	
 	InventoryEvent->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
-	Room* inventory = new Room(2);
 	InventoryEvent->setBarelyEscapable(inventory);
 	return InventoryEvent;
 }
@@ -146,19 +185,7 @@ Event* Game::createInventory(){
 
 void Game::initLevel() {
 	
-	Event* InventoryEvent = new Event(
-		SWIPE_UP,
-		new PlayerState(),
-		new RoomState(),
-		new PlayerState(),
-		new RoomState(),
-		"You opened inventory.\nCurrent item: "
-	);
-	
-	InventoryEvent->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
-	Room* inventory = new Room(2);
-	InventoryEvent->setBarelyEscapable(inventory);
-	
+	Event* InventoryEvent  = Game::createInventory();
 	
 	currentPlayer = new Player();
 	currentPlayer->addToInventory(0,0);
@@ -180,7 +207,7 @@ void Game::initLevel() {
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
 
-		/**CREATION OF SECOND ROOM**/
+	/**CREATION OF SECOND ROOM**/
 
 	Room* room2 = new Room(3);
 	room2->setDescription(0, "NORTH, room2");
@@ -194,7 +221,7 @@ void Game::initLevel() {
 	
 	connectRooms(currentRoom, room2, SOUTH);
 
-		/**CREATION OF THIRD ROOM**/
+	/**CREATION OF THIRD ROOM**/
 
 	Room* room3 = new Room(4);
 	room3->setDescription(0, "NORTH, room3");
@@ -236,64 +263,6 @@ void Game::initLevel() {
 	
 	connectRooms(room3, room5, EAST);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-
-	Event* e = new Event(SWIPE_DOWN,
-		new PlayerState(),
-		new RoomState(),
-		new PlayerState(),
-		new RoomState(),
-		"You closed inventory. "
-	);
-	e->setMoveToNextRoom(true);
-	inventory->setEvent(e);
-
-	e = new Event(
-		SWIPE_LEFT,
-		new PlayerState(),
-		new RoomState(),
-		new PlayerState(),
-		new RoomState(),
-		"Current item: "
-	);
-	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_LEFT);
-	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
-	inventory->setEvent(e);
-	e = new Event(
-		SWIPE_RIGHT,
-		new PlayerState(),
-		new RoomState(),
-		new PlayerState(),
-		new RoomState(),
-		"Current item: "
-	);
-	e->setActionOnEvent(ON_EVENT_ITERATE_ITEMS_RIGHT);
-	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
-	inventory->setEvent(e);
-
-	
 	Room *goal = new Room(4);
 	goal->setEvent(new Event(
 		NOTHING,

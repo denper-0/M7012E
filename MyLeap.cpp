@@ -72,7 +72,11 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 		|| actionIsInList(SWIPE_UP, actionList)
 		|| actionIsInList(SWIPE_DOWN, actionList)
 		|| actionIsInList(SWIPE_FORWARD, actionList)
-		|| actionIsInList(SWIPE_BACKWARD, actionList)) {
+		|| actionIsInList(SWIPE_BACKWARD, actionList)
+		|| actionIsInList(SCREEN_TAP, actionList)
+		|| actionIsInList(CIRCLE_CLOCKWISE, actionList)
+		|| actionIsInList(CIRCLE_COUNTER_CLOCKWISE, actionList)
+		|| actionIsInList(KEY_TAP, actionList)) {
 		
 		// Get gestures
 		const Leap::GestureList gestures = frame.gestures();
@@ -82,47 +86,100 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 
 			Leap::Gesture gesture = gestures[g];
 
-			// if it is a swipe gesture
-			if(gesture.type() == Leap::Gesture::TYPE_SWIPE) {
+			// SWIPE
+			if(actionIsInList(SWIPE_RIGHT, actionList)
+				|| actionIsInList(SWIPE_LEFT, actionList)
+				|| actionIsInList(SWIPE_UP, actionList)
+				|| actionIsInList(SWIPE_DOWN, actionList)
+				|| actionIsInList(SWIPE_FORWARD, actionList)
+				|| actionIsInList(SWIPE_BACKWARD, actionList)) {
+
+				// if it is a swipe gesture
+				if(gesture.type() == Leap::Gesture::TYPE_SWIPE) {
 			
-				Leap::SwipeGesture swipe = gesture;
+					Leap::SwipeGesture swipe = gesture;
 
-				// if the gesture is complete. 
-				if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
+					// if the gesture is in progress. 
+					if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
 
-					// need to figure out what direction is moste dominent
-					if(abs(swipe.direction().x) > abs(swipe.direction().y) && abs(swipe.direction().x) > abs(swipe.direction().z)) {
-						// x is dominant movement direction
-						if(swipe.direction().x > 0) {
-							return SWIPE_RIGHT;
+						// need to figure out what direction is moste dominent
+						if(abs(swipe.direction().x) > abs(swipe.direction().y) && abs(swipe.direction().x) > abs(swipe.direction().z)) {
+							// x is dominant movement direction
+							if(swipe.direction().x > 0) {
+								return SWIPE_RIGHT;
+							} else {
+								return SWIPE_LEFT;
+							}
+						} else if(abs(swipe.direction().y) > abs(swipe.direction().x) && abs(swipe.direction().y) > abs(swipe.direction().z)) {
+							// y is dominant movement direction
+							if(swipe.direction().y > 0) {
+								return SWIPE_UP;
+							} else {
+								return SWIPE_DOWN;
+							}
+						} else if(abs(swipe.direction().z) > abs(swipe.direction().x) && abs(swipe.direction().z) > abs(swipe.direction().y)) {
+							// z is dominant movement direction
+							if(swipe.direction().z > 0) {
+								return SWIPE_BACKWARD;
+							} else {
+								return SWIPE_FORWARD;
+							}
 						} else {
-							return SWIPE_LEFT;
+							// wtf, user swiped super diagonaled perfect stuff! xD
 						}
-					} else if(abs(swipe.direction().y) > abs(swipe.direction().x) && abs(swipe.direction().y) > abs(swipe.direction().z)) {
-						// y is dominant movement direction
-						if(swipe.direction().y > 0) {
-							return SWIPE_UP;
-						} else {
-							return SWIPE_DOWN;
-						}
-					} else if(abs(swipe.direction().z) > abs(swipe.direction().x) && abs(swipe.direction().z) > abs(swipe.direction().y)) {
-						// z is dominant movement direction
-						if(swipe.direction().z > 0) {
-							return SWIPE_BACKWARD;
-						} else {
-							return SWIPE_FORWARD;
-						}
-					} else {
-						// wtf, user swiped super diagonaled perfect stuff! xD
+
 					}
-
+					/*
+					std::cout << "Swipe id: " << gesture.id()
+						<< ", state: " << gesture.state()
+						<< ", direction: " << swipe.direction()
+						<< ", speed: " << swipe.speed() << std::endl;
+					*/
 				}
-				/*
-				std::cout << "Swipe id: " << gesture.id()
-					<< ", state: " << gesture.state()
-					<< ", direction: " << swipe.direction()
-					<< ", speed: " << swipe.speed() << std::endl;
-				*/
+			}
+			
+			if(actionIsInList(SCREEN_TAP, actionList)) {
+				if(gesture.type() == Leap::Gesture::TYPE_SCREEN_TAP) {
+					Leap::ScreenTapGesture tap = gesture;
+					if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
+						return SCREEN_TAP;
+					}
+				}
+			}
+			
+			if(actionIsInList(CIRCLE_CLOCKWISE, actionList)
+				|| actionIsInList(CIRCLE_COUNTER_CLOCKWISE, actionList)) {
+				if(gesture.type() == Leap::Gesture::TYPE_CIRCLE) {
+					Leap::CircleGesture circle = gesture;
+					if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
+						if(circle.progress() >= 1) {
+							if (circle.pointable().direction().angleTo(circle.normal()) <= PI/2) {
+								//clockwise
+								return CIRCLE_CLOCKWISE;
+							} else {
+								return CIRCLE_COUNTER_CLOCKWISE;
+							}
+						}
+					}
+				}
+			}
+
+			if(actionIsInList(KEY_TAP, actionList)) {
+				if(gesture.type() == Leap::Gesture::TYPE_KEY_TAP) {
+					Leap::KeyTapGesture keytap = gesture;
+					if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
+						return KEY_TAP;
+					}
+				}
+			}
+		}
+		
+		if(actionIsInList(PALM_UP, actionList)) {
+			Leap::HandList hands = frame.hands();
+			Leap::Hand hand;
+			for(Leap::HandList::const_iterator hl = frame.hands().begin(); hl != frame.hands().end();) {
+				hand = *hl;
+				
 			}
 		}
 	}

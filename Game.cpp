@@ -2,7 +2,8 @@
 
 
 Game::Game(void) {
-	text = new Gametext();
+	generalText = new Gametext("generalText.txt");
+	descText = new Gametext();
 	itemText = new Gametext("items.txt");
 }
 
@@ -124,26 +125,7 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 	}
 }
 
-void Game::initLevel() {
-	currentPlayer = new Player();
-	
-	currentPlayer->addToInventory(0,0);
-	currentPlayer->addToInventory(1,1);
-	currentPlayer->addToInventory(2,2);
-	currentPlayer->addToInventory(3,3);
-	currentPlayer->addToInventory(4,4);
-
-	currentRoom = new Room(1);
-
-	currentRoom->setDescription(0, text->getText(1));
-	currentRoom->setDescription(1, text->getText(2));
-	currentRoom->setDescription(2, text->getText(3));
-	currentRoom->setDescription(3, text->getText(4));
-	currentRoom->setDescription(4, text->getText(5));
-	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
-	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
-	//currentRoom->setEvent(new Event());
-
+Event* Game::createInventory(){
 
 	Event* InventoryEvent = new Event(
 		SWIPE_UP,
@@ -153,10 +135,130 @@ void Game::initLevel() {
 		new RoomState(),
 		"You opened inventory.\nCurrent item: "
 	);
+	
 	InventoryEvent->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
 	Room* inventory = new Room(2);
 	InventoryEvent->setBarelyEscapable(inventory);
+	return InventoryEvent;
+}
+
+
+
+void Game::initLevel() {
+	
+	Event* InventoryEvent = new Event(
+		SWIPE_UP,
+		new PlayerState(),
+		new RoomState(),
+		new PlayerState(),
+		new RoomState(),
+		"You opened inventory.\nCurrent item: "
+	);
+	
+	InventoryEvent->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
+	Room* inventory = new Room(2);
+	InventoryEvent->setBarelyEscapable(inventory);
+	
+	
+	currentPlayer = new Player();
+	currentPlayer->addToInventory(0,0);
+	currentPlayer->addToInventory(1,1);
+	currentPlayer->addToInventory(2,2);
+	currentPlayer->addToInventory(3,3);
+	currentPlayer->addToInventory(4,4);
+
+	/**CREATION OF CURRENTROOM**/
+
+	currentRoom = new Room(1);
+
+	currentRoom->setDescription(0, descText->getText(1));
+	currentRoom->setDescription(1, descText->getText(2));
+	currentRoom->setDescription(2, descText->getText(3));
+	currentRoom->setDescription(3, descText->getText(4));
+	
 	currentRoom->setEvent(InventoryEvent);
+	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
+	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
+
+		/**CREATION OF SECOND ROOM**/
+
+	Room* room2 = new Room(3);
+	room2->setDescription(0, "NORTH, room2");
+	room2->setDescription(1, "EAST, room2");
+	room2->setDescription(2, "SOUTH, room2");
+	room2->setDescription(3, "WEST, room2");
+	room2->setDescription(4,generalText->getText(1));
+	room2->setEvent(InventoryEvent);
+	decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
+	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You turned right. \n");
+	
+	connectRooms(currentRoom, room2, SOUTH);
+
+		/**CREATION OF THIRD ROOM**/
+
+	Room* room3 = new Room(4);
+	room3->setDescription(0, "NORTH, room3");
+	room3->setDescription(1, "EAST, room3");
+	room3->setDescription(2, "SOUTH, room3");
+	room3->setDescription(3, "WEST, room3");
+	room3->setDescription(4, generalText->getText(2));
+	room3->setEvent(InventoryEvent);
+	decorateRoom(room3, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
+	decorateRoom(room3, DECORATE_ROTATE_ROOM_RIGHT, "You turned right. \n");
+	
+	connectRooms(room2, room3, WEST);
+
+	/**CREATION OF FOURTH ROOM**/
+
+	Room* room4 = new Room(1);
+	room4->setDescription(0, "NORTH, room4");
+	room4->setDescription(1, "EAST, room4");
+	room4->setDescription(2, "SOUTH, room4");
+	room4->setDescription(3, "WEST, room4");
+	room4->setDescription(4,generalText->getText(3));
+	room4->setEvent(InventoryEvent);
+	decorateRoom(room4, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
+	decorateRoom(room4, DECORATE_ROTATE_ROOM_RIGHT, "You turned right.. \n");
+	
+	connectRooms(room3, room4, NORTH);
+
+	/**CREATION OF FIFTH ROOM**/
+
+	Room* room5 = new Room(2);
+	room5->setDescription(0, "NORTH, room5");
+	room5->setDescription(1, "EAST, room5");
+	room5->setDescription(2, "SOUTH, room5");
+	room5->setDescription(3, "WEST, room5");
+	room5->setDescription(4, generalText->getText(4));
+	room5->setEvent(InventoryEvent);
+	decorateRoom(room5, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
+	decorateRoom(room5, DECORATE_ROTATE_ROOM_RIGHT, "You turned right. \n");
+	
+	connectRooms(room3, room5, EAST);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
 
 	Event* e = new Event(SWIPE_DOWN,
 		new PlayerState(),
@@ -191,17 +293,7 @@ void Game::initLevel() {
 	e->setActionOnEvent(ON_EVENT_PRINT_CURRENT_ITEM);
 	inventory->setEvent(e);
 
-	Room* room2 = new Room(3);
-	room2->setDescription(0, "NORTH, room2");
-	room2->setDescription(1, "EAST, room2");
-	room2->setDescription(2, "SOUTH, room2");
-	room2->setDescription(3, "WEST, room2");
-	room2->setEvent(InventoryEvent);
-	decorateRoom(room2, DECORATE_ROTATE_ROOM_LEFT, "You rotated the wall. \n");
-	decorateRoom(room2, DECORATE_ROTATE_ROOM_RIGHT, "You rotated the wall. \n");
 	
-	connectRooms(currentRoom, room2, SOUTH);
-
 	Room *goal = new Room(4);
 	goal->setEvent(new Event(
 		NOTHING,
@@ -211,8 +303,8 @@ void Game::initLevel() {
 		new RoomState(),
 		"You won the game. "
 	));
-	setEventOnDoor(room2, EAST, "You can see the goal, and runs like hell towards the light!");
-	room2->setDoor(EAST, goal); // no way back ^^
+	setEventOnDoor(room5, EAST, "You can see the goal, and runs like hell towards the light!");
+	room5->setDoor(EAST, goal); // no way back ^^
 }
 
 void Game::printText(std::string str){
@@ -244,8 +336,8 @@ int Game::looper() {
 	Room* barelyEscapableRoom;
 	bool hasEscaped = false;
 	// first message
-	this->printText(text->getText(0));
-
+	this->printText(generalText->getText(0));
+	//generalText->getText(currentRoom->getDescription(NO_DIRECTION)); LOOL
 	nextRoom = currentRoom;
 	while(true) {
 		if(currentRoom != NULL) {

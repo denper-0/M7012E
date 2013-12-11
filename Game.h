@@ -26,12 +26,14 @@ private:
 	MyLeap* L;
 	Room* currentRoom;
 	Player* currentPlayer;
-	Gametext *text;
+	Gametext *generalText;
+	Gametext *descText;
 	Gametext *itemText;
 	enum DECORATE_ROOM_OPTION {DECORATE_ROTATE_ROOM_LEFT, DECORATE_ROTATE_ROOM_RIGHT};
 	void decorateRoom(Room *r, int options, std::string texts);
 	void connectRooms(Room *r1, Room *r2, int firstRoomsDirection);
 	void setEventOnDoor(Room* r, int direction, std::string output = "");
+	Event* createInventory();
 	/**
 	*	@breif runLoopOnRoom
 		@return Room*  sometimes NULL used to indicating for barelyEscapableEvent when it is escaped. Otherwise the current Room. 

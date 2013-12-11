@@ -56,7 +56,8 @@ enum MyLeapAction {
 	SWIPE_BACKWARD,
 	NOT_CONNECTED, 
 	NOTHING, 
-	RANDOMSHIT 
+	RANDOMSHIT,
+	SCREEN_TAP
 };
 
 class MyLeap

@@ -142,8 +142,11 @@ void Game::initLevel() {
 	currentRoom->setDescription(4, text->getText(5));
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
+	//currentRoom->setEvent(new Event());
 
-	Event* InventoryEvent = new Event(SWIPE_UP,
+
+	Event* InventoryEvent = new Event(
+		SWIPE_UP,
 		new PlayerState(),
 		new RoomState(),
 		new PlayerState(),
@@ -208,10 +211,8 @@ void Game::initLevel() {
 		new RoomState(),
 		"You won the game. "
 	));
-	setEventOnDoor(room2, NORTH, "You can see the goal, and runs like hell towards the light!");
-
-
-	room2->setDoor(NORTH, goal); // no way back ^^
+	setEventOnDoor(room2, EAST, "You can see the goal, and runs like hell towards the light!");
+	room2->setDoor(EAST, goal); // no way back ^^
 }
 
 void Game::printText(std::string str){

@@ -2,7 +2,6 @@ Room1: NORTH, There's a picture of you when you had hope in life.
 EAST, You see a small glimmering light underneath the door.
 SOUTH, Read sign: TOILET!
 WEST, You see your bed.
-Special: Seems you did something stupid when you were drunk because the door is locked, you need to find the key.
 Room2: NORTH, There's a window, you don't want to look out the window with your headache.
 EAST, There used to hang a door here, what happened?
 SOUTH, There's alot of beer bottles on top of that piano. Seems like the trashcan is full too.
@@ -19,3 +18,4 @@ Room5: NORTH, You see the exit door, you feel like you have to puke.
 EAST, A mirror, you look like shit.
 SOUTH, The door to the dining room.
 WEST, You see one shoe on the shoe holding thingy.
+Special: Seems you did something stupid when you were drunk because the door is locked, you need to find the key.

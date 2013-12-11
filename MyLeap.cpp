@@ -153,7 +153,7 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 					Leap::CircleGesture circle = gesture;
 					if(gesture.state() == Leap::Gesture::STATE_UPDATE) {
 						if(circle.progress() >= 1) {
-							if (circle.pointable().direction().angleTo(circle.normal()) <= PI/2) {
+							if (circle.pointable().direction().angleTo(circle.normal()) <= Leap::PI/2) {
 								//clockwise
 								return CIRCLE_CLOCKWISE;
 							} else {

@@ -59,7 +59,7 @@ State* Player::getState() {
 void Player::setCurrentToNextItem(bool iterateUp) {
 	int itemId = currentState->getCurrentItemSelected();
 	std::vector<int> itemsInInventory = currentState->getItems();
-	if(!(itemsInInventory.size() <= 1)){
+	if(!(itemsInInventory.size() <= 1)) {
 		for (unsigned i=0; i<itemsInInventory.size(); i++) {
 			if(itemsInInventory.at(i) == itemId) {
 				if(iterateUp == true) {
@@ -106,4 +106,9 @@ void Player::addToInventory(int i, int itemId) {
 
 int Player::getCurrentItem() {
 	return currentState->getCurrentItemSelected();
+}
+
+
+int Player::getInventorySize(){
+	return currentState->getItems().size();
 }

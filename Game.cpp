@@ -13,75 +13,33 @@ Game::~Game(void) {
 }
 
 void Game::decorateRoom(Room *r, int option, std::string text) {
+	Event* e;
 	switch(option) {
 	case DECORATE_ROTATE_ROOM_LEFT:
-		r->setEvent(new Event(
+		e = new Event(
 			SWIPE_LEFT,
-			new PlayerState(NORTH), // current State
+			new PlayerState(), // current State
 			new RoomState(),
-			new PlayerState(WEST), // new state
+			new PlayerState(), // new state
 			new RoomState(),
-			text+r->getDescription(WEST)
-		));
-		r->setEvent(new Event(
-			SWIPE_LEFT,
-			new PlayerState(WEST), // current State
-			new RoomState(),
-			new PlayerState(SOUTH), // new state
-			new RoomState(),
-			text+r->getDescription(SOUTH)
-		));
-		r->setEvent(new Event(
-			SWIPE_LEFT,
-			new PlayerState(SOUTH), // current State
-			new RoomState(),
-			new PlayerState(EAST), // new state
-			new RoomState(),
-			text+r->getDescription(EAST)
-		));
-		r->setEvent(new Event(
-			SWIPE_LEFT,
-			new PlayerState(EAST), // current State
-			new RoomState(),
-			new PlayerState(NORTH), // new state
-			new RoomState(),
-			text+r->getDescription(NORTH)
-		));
-
+			text
+		);
+		e->setActionOnEvent(ON_EVENT_ITERATE_FACING_LEFT);
+		e->setActionOnEvent(ON_EVENT_PRINT_DIRECTION);
+		r->setEvent(e);
 		break;
 	case DECORATE_ROTATE_ROOM_RIGHT:
-		r->setEvent(new Event(
+		e = new Event(
 			SWIPE_RIGHT,
-			new PlayerState(NORTH), // current state
+			new PlayerState(), // current State
 			new RoomState(),
-			new PlayerState(EAST), // new state
+			new PlayerState(), // new state
 			new RoomState(),
-			text+r->getDescription(EAST)
-		));
-		r->setEvent(new Event(
-			SWIPE_RIGHT,
-			new PlayerState(EAST), // current state
-			new RoomState(),
-			new PlayerState(SOUTH), // new state
-			new RoomState(),
-			text+r->getDescription(SOUTH)
-		));
-		r->setEvent(new Event(
-			SWIPE_RIGHT,
-			new PlayerState(SOUTH), // current state
-			new RoomState(),
-			new PlayerState(WEST), // new state
-			new RoomState(),
-			text+r->getDescription(WEST)
-		));
-		r->setEvent(new Event(
-			SWIPE_RIGHT,
-			new PlayerState(WEST), // current state
-			new RoomState(),
-			new PlayerState(NORTH), // new state
-			new RoomState(),
-			text+r->getDescription(NORTH)
-		));
+			text
+		);
+		e->setActionOnEvent(ON_EVENT_ITERATE_FACING_RIGHT);
+		e->setActionOnEvent(ON_EVENT_PRINT_DIRECTION);
+		r->setEvent(e);
 		break;
 	default: 
 		break;
@@ -187,15 +145,14 @@ void Game::initLevel() {
 	
 	Event* InventoryEvent  = Game::createInventory();
 	Event* e;
+	RoomState* rs;
+	PlayerState* ps;
 	
+	/**CREATION OF CURRENTROOM**/
 	currentPlayer = new Player();
 	currentPlayer->addToInventory(0,0);
-	currentPlayer->addToInventory(1,1);
-	currentPlayer->addToInventory(2,2);
-	currentPlayer->addToInventory(3,3);
-	currentPlayer->addToInventory(4,4);
+	
 
-	/**CREATION OF CURRENTROOM**/
 
 	currentRoom = new Room(1);
 
@@ -207,6 +164,7 @@ void Game::initLevel() {
 	currentRoom->setEvent(InventoryEvent);
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_LEFT, "You turned left\n");
 	decorateRoom(currentRoom, DECORATE_ROTATE_ROOM_RIGHT, "You turned right\n");
+
 
 	/**CREATION OF SECOND ROOM**/
 
@@ -224,7 +182,7 @@ void Game::initLevel() {
 
 	/**CREATION OF THIRD ROOM**/
 
-	Room* room3 = new Room(2);
+	Room* room3 = new Room(3);
 	room3->setDescription(0, descText->getText(8));
 	room3->setDescription(1, descText->getText(9));
 	room3->setDescription(2, descText->getText(10));
@@ -238,30 +196,13 @@ void Game::initLevel() {
 
 	/**CREATION OF FOURTH ROOM**/
 
-	Room* room4 = new Room(1);
+	Room* room4 = new Room(4);
 	room4->setDescription(0, descText->getText(16));
 	room4->setDescription(1, descText->getText(17));
 	room4->setDescription(2, descText->getText(18));
 	room4->setDescription(3, descText->getText(19));
 	room4->setDescription(4,generalText->getText(3));
 	room4->setEvent(InventoryEvent);
-
-	room4->setItem(0,1);
-	RoomState* rs = new RoomState();
-	RoomState* rs2 = new RoomState();
-	rs->setItem(0, 1);
-	//rs2->getItemsToRemove();
-	rs2->setDesc(EAST, "no key here anymore. ");
-	e = new Event(
-		KEY_TAP,
-		new PlayerState(EAST),
-		rs,
-		new PlayerState(),
-		rs2,
-		"You picked up "+itemText->getText(1)
-	);
-	room4->setEvent(e);
-
 	decorateRoom(room4, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
 	decorateRoom(room4, DECORATE_ROTATE_ROOM_RIGHT, "You turned right.. \n");
 	
@@ -269,7 +210,7 @@ void Game::initLevel() {
 
 	/**CREATION OF FIFTH ROOM**/
 
-	Room* room5 = new Room(2);
+	Room* room5 = new Room(5);
 	room5->setDescription(0, descText->getText(12));
 	room5->setDescription(1, descText->getText(13));
 	room5->setDescription(2, descText->getText(14));
@@ -279,9 +220,25 @@ void Game::initLevel() {
 	decorateRoom(room5, DECORATE_ROTATE_ROOM_LEFT, "You turned left. \n");
 	decorateRoom(room5, DECORATE_ROTATE_ROOM_RIGHT, "You turned right. \n");
 	
+	room5->setItem(0,1);
+	rs = new RoomState();
+	RoomState* rs2 = new RoomState();
+	rs->setItem(0, 1);
+	//rs2->getItemsToRemove();
+	rs2->setDesc(EAST, "no key here anymore. ");
+	e = new Event(
+		SWIPE_DOWN,
+		new PlayerState(EAST),
+		rs,
+		new PlayerState(),
+		rs2,
+		"You picked up "+itemText->getText(1)
+	);
+	room5->setEvent(e);
+
 	connectRooms(room3, room5, EAST);
 
-	Room *goal = new Room(4);
+	Room *goal = new Room(6);
 	goal->setEvent(new Event(
 		NOTHING,
 		new PlayerState(), // current state
@@ -290,8 +247,39 @@ void Game::initLevel() {
 		new RoomState(),
 		"You won the game. "
 	));
-	setEventOnDoor(currentRoom, SOUTH, "You can see the goal, and runs like hell towards the light!");
+	setEventOnDoor(currentRoom, SOUTH, "You walks though the toiletdoor!");
 	currentRoom->setDoor(SOUTH, goal); // no way back ^^
+	goal->setRoomIsLocked(true);
+
+	
+	rs = new RoomState();
+	rs->setRoomIsLocked(NEXT_ROOM_IS_LOCKED);
+	e = new Event(
+		SWIPE_FORWARD,
+		new PlayerState(SOUTH),
+		rs,
+		new PlayerState(),
+		new RoomState(),
+		"Door is locked."
+	);
+	currentRoom->setEvent(e);
+
+	rs = new RoomState();
+	rs->setRoomIsLocked(NEXT_ROOM_IS_LOCKED);
+	ps = new PlayerState(SOUTH);
+	ps->setCurrentItemSelected(1);
+	rs2 = new RoomState();
+	rs2->setRoomIsLocked(NEXT_ROOM_IS_UNLOCKED);
+	rs2->setDesc(SOUTH, "OMG door is unlockededded!");
+	e = new Event(
+		SWIPE_FORWARD,
+		ps,
+		rs,
+		new PlayerState(),
+		rs2,
+		"You used the key! Door is unlocked!"
+	);
+	currentRoom->setEvent(e);
 }
 
 void Game::printText(std::string str){
@@ -364,8 +352,9 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 
 	// remove events that are not ment to be triggered regard to the states. 
 	for(size_t i=0; i < events.size(); i++) {
-		if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate()) && currentRoom->isEqual(events[i]->getCurrentRoomstate())) {
-				
+		if(currentPlayer->isEqual(events[i]->getCurrentPlayerstate(), new State()) 
+			&& currentRoom->isEqual(events[i]->getCurrentRoomstate(), events[i]->getCurrentPlayerstate())) {
+			
 		} else {
 			events.erase(events.begin()+i);
 			i--;
@@ -375,9 +364,12 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 	// trigger the events. 
 	for(size_t i=0; i < events.size(); i++) {
 
+		nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
+
 		// The actions
-		currentPlayer->overWrite((events[i]->getNewPlayerstate()));
-		currentRoom->overWrite((events[i]->getNewRoomstate()));
+		currentPlayer->overWrite((events[i]->getNewPlayerstate()), new State());
+		currentRoom->overWrite((events[i]->getNewRoomstate()), currentPlayer->getState());
+		
 		output = events[i]->getText();
 
 		eventActions = events[i]->getActionOnEvent();
@@ -394,29 +386,46 @@ Room* Game::runLoopOnRoom(Room *currentRoom) {
 			case ON_EVENT_PRINT_CURRENT_ITEM:
 				output += itemText->getText(currentPlayer->getCurrentItem());
 				break;
+			case ON_EVENT_ITERATE_FACING_LEFT:
+				currentPlayer->setCurrentToNextDirection(false);
+				break;
+			case ON_EVENT_ITERATE_FACING_RIGHT:
+				currentPlayer->setCurrentToNextDirection(true);
+				break;
+			case ON_EVENT_PRINT_DIRECTION:
+				output += currentRoom->getDescription(currentPlayer->getFacing());
+				break;
 			default:
+
 				break;
 			}
 		}
+		
 
 		// print the events output. 
-		if(output.empty() == false) {
+		if(output.empty() == false && events[i]->getMoveToNextRoom() == false) {
 			this->printText(output);
 		}
 
 		// change room if event is ment to do that. 
 		if(events[i]->getMoveToNextRoom()) {
-			nextRoom = currentRoom->getDoor(currentPlayer->getFacing());
+			
 			if(nextRoom != NULL) {
-				currentRoom = nextRoom;
+				
+				if(nextRoom->getRoomIsLocked() != NEXT_ROOM_IS_LOCKED) {
+					this->printText(output);
 
-				// print next rooms description. 
-				this->printText(currentRoom->getDescription(NO_DIRECTION)); // print general description
-				this->printText(currentRoom->getDescription(currentPlayer->getFacing())); // print facing description
+					currentRoom = nextRoom;
 
-				// break loop, no event carry over plz!
-				i=events.size();
+					// print next rooms description. 
+					this->printText(currentRoom->getDescription(NO_DIRECTION)); // print general description
+					this->printText(currentRoom->getDescription(currentPlayer->getFacing())); // print facing description
+
+					// break loop, no event carry over plz!
+					i=events.size();
+				}
 			} else {
+				this->printText(output);
 				return NULL;
 			}
 		} else if(events[i]->isBarelyEscapable()) {

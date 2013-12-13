@@ -4,9 +4,12 @@
 PlayerState::PlayerState(int f, int itemId, int HP)
 {
 	facing = f;
-	items.push_back(itemId);
+	if(itemId == 0) {
+		items.push_back(itemId);
+	}
 	this->HP = HP;
 	currentItemSelected = 0;
+	maxFacing = 3;
 }
 
 
@@ -19,6 +22,9 @@ int PlayerState::getFacing(void) {
 }
 void PlayerState::setFacing(int f) {
 	facing = f;
+}
+int PlayerState::getMaxFacing() {
+	return maxFacing;
 }
 
 

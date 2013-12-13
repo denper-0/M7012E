@@ -6,15 +6,13 @@
 //#include "Player.h"
 #include "StateHolder.h"
 #include "RoomState.h"
+#include "PlayerState.h"
 #include "Event.h"
 //using namespace std;
 
 class Player;
 class StateHolder;
 enum MyLeapAction;
-
-enum ROOM_DIRECTIONS { NORTH, EAST, SOUTH, WEST, NO_DIRECTION };
-
 
 class Room : public StateHolder {
 	
@@ -43,7 +41,12 @@ public:
 
 	void setItem(int i, int itemId);
 	
-	virtual void overWrite(State* s); // must be implemented
-	virtual bool isEqual(State* s); // must be implemented
+	virtual void overWrite(State* s, State* s2); // must be implemented
+	virtual bool isEqual(State* s, State* s2); // must be implemented
+
+	
+	int getRoomIsLocked();
+	void setRoomIsLocked(int);
+	State* getState();
 };
 

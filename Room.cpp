@@ -51,9 +51,13 @@ void Room::setItem(int i, int itemId) {
 	currentRoomState->setItem(i, itemId);
 }
 
+State* Room::getState() {
+	return currentRoomState;
+}
 
-void Room::overWrite(State* s) {
+void Room::overWrite(State* s, State* s2) {
 	RoomState* rs = static_cast<RoomState*>(s); // typecast
+	PlayerState* playerState = static_cast<PlayerState*>(s2); // typecast
 
 	for(size_t i =0; i < 4; i++) {
 		if(rs->getDoor(i) != NULL) {
@@ -65,9 +69,22 @@ void Room::overWrite(State* s) {
 			this->setDescription(i, rs->getDesc(i));
 		}
 	}
+	for(size_t i =0; i < currentRoomState->getItems().size(); i++) {
+		if(rs->getItem(i) != NULL) {
+			setItem(i, rs->getItem(i));
+		}
+	}
+	if(rs->getRoomIsLocked() != NEXT_ROOM_IS_NULL ) {
+		Room* nextRoom = currentRoomState->getDoor(playerState->getFacing());
+		if(nextRoom != NULL) {
+			nextRoom->setRoomIsLocked(rs->getRoomIsLocked());
+		}
+	}
 }
-bool Room::isEqual(State* s) {
+
+bool Room::isEqual(State* s, State* s2) {
 	RoomState* rs = static_cast<RoomState*>(s); // typecast
+	PlayerState* currentPlayer = static_cast<PlayerState*>(s2); // typecast
 	
 	for(size_t i =0; i < 4; i++) {
 		if(rs->getDoor(i) != NULL && rs->getDoor(i) != this->getDoor(i)) {
@@ -84,54 +101,27 @@ bool Room::isEqual(State* s) {
 			return false;
 		}
 	}
+
+	int facing = currentPlayer->getFacing();
+	if(facing != NULL) {
+		Room* nextRoom = currentRoomState->getDoor(facing);
+		if(nextRoom != NULL && rs->getRoomIsLocked() != NEXT_ROOM_IS_NULL 
+				&& nextRoom->getRoomIsLocked() != rs->getRoomIsLocked()) {
+			return false;
+		}
+	}
+
 	return true;
 }
 
 int Room::getRoomId() {
 	return roomId;
 }
-
-/*
-void Room::tomte() {
   
-	string name;
-	string hej = "Hallo Elleh!\n";
-	string name1 = "What's your name?\n";
-	string douche = "!?!? What a silly name!\n\n";
-	string silly = name+douche;
 
-	printText(hej);
-	printText(name1);
-	printText("My name is ");
-	getline(cin, name);
-	printText(name);
-	printText(silly);
-	getchar();
-
+int Room::getRoomIsLocked() {
+	return currentRoomState->getRoomIsLocked();
 }
-*/
-
-
-  
-
- 
-
-  /* some possible cursors */
-  /*
-20
-  for (unsigned i = 176; i < 179; i++)
-21
-    cout << char(i) << ' ';
-22
-  cout << endl;
-23
- 
-24
-  for (unsigned i = 219; i < 223; i++)
-25
-    cout << char(i) << ' ';
-26
-  cout << endl;
-27
-  */
-  
+void Room::setRoomIsLocked(int locked) {
+	currentRoomState->setRoomIsLocked(locked);
+}

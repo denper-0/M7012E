@@ -6,6 +6,7 @@
 //using namespace std;
 #include "StateHolder.h"
 #include "PlayerState.h"
+#include <algorithm>
 class State;
 
 class Player : public StateHolder
@@ -20,11 +21,13 @@ public:
 	void removeFromInventory(int);
 	void setCurrentToNextItem(bool);
 	int getCurrentItem();
-	virtual void overWrite(State* s); // must be implemented
-	virtual bool isEqual(State* s); // must be implemented
-
+	virtual void overWrite(State* s, State* s2); // must be implemented
+	virtual bool isEqual(State* s,State* s2); // must be implemented
+	void setCurrentToNextDirection(bool);
+	State* getState();
 private:
 	std::vector<int> inventory;
 	PlayerState* currentState;
+	int maxFacing;
 };
 

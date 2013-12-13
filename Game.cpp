@@ -226,11 +226,13 @@ void Game::initLevel() {
 	rs->setItem(0, 1);
 	//rs2->getItemsToRemove();
 	rs2->setDesc(EAST, "no key here anymore. ");
+	ps = new PlayerState();
+	ps->setItem(0,1);
 	e = new Event(
 		SWIPE_DOWN,
 		new PlayerState(EAST),
 		rs,
-		new PlayerState(),
+		ps,
 		rs2,
 		"You picked up "+itemText->getText(1)
 	);

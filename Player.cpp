@@ -24,11 +24,14 @@ void Player::overWrite(State* s, State* s2) {
 	if(ps->getCurrentItemSelected() != 0) {
 		currentState->setCurrentItemSelected(ps->getCurrentItemSelected());
 	}
-	std::vector<int> items;
+
+	// add items
+	std::vector<int> items = ps->getItems();
+	std::vector<int> currentPlayersItems;
 	for(size_t i =0; i < items.size(); i++) {
 		if(ps->getItem(i) != NULL) {
-			items = ps->getItems();
-			if(std::find(items.begin(), items.end(), ps->getItem(i)) == items.end()) {
+			currentPlayersItems = currentState->getItems(); // need to update secound time and rest of them!
+			if(std::find(currentPlayersItems.begin(), currentPlayersItems.end(), ps->getItem(i)) == currentPlayersItems.end()) {
 				currentState->setItem(currentState->getItems().size(), ps->getItem(i));
 			}
 		}

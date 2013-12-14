@@ -4,6 +4,8 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <algorithm>
+
 
 #include "MyLeap.h"
 #include "Gametext.h"

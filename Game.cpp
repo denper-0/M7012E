@@ -287,14 +287,17 @@ void Game::initLevel() {
 void Game::printText(std::string str){
 	str = str+"\n";
 	//cout << string(50, '\n');
-	for (unsigned i = 0; i < str.length(); i++)
-  {
-    std::cout << str[i];
-    if((i + 1) < str.length() && str[i+1] != '\n')
-      std::cout << char(219);
-    Sleep(40);
-    if((i + 1) < str.length() && str[i+1] != '\n')
-      std::cout << char(8);
+	for (unsigned i = 0; i < str.length(); i++){
+
+		replace( str.begin(), str.end(), ';', '\n' );
+		std::cout << str[i];
+
+
+		if((i + 1) < str.length() && str[i+1] != '\n')
+			std::cout << char(219);
+		Sleep(40);
+		if((i + 1) < str.length() && str[i+1] != '\n')
+			std::cout << char(8);
   }
   std::cout << ' ' << char(8); 
 }

@@ -1,21 +1,21 @@
-NORTH, There's a picture of you when you had hope in life.
+NORTH, There's a picture of you from graduation.
 EAST, You see a small glimmering light underneath the door.
 SOUTH, Read sign: TOILET!
 WEST, You see your bed.
 NORTH, There's a window, you don't want to look out the window with your headache.
 EAST, There used to hang a door here, what happened?
 SOUTH, There's alot of beer bottles on top of that piano. Seems like the trashcan is full too.
-WEST, Your master bedroom.
+WEST, You see your master bedroom.
 NORTH, It's the entrance to the hallway.
 EAST, You see a closed door.
-SOUTH, Do not go further. There's so much broken glass on the floor over there.
+SOUTH, There's so much broken glass on the floor over there.
 WEST, You see the livingroom through the open door.
-NORTH, The kitchen counter is full of shit, dishwasher is on and the sound irritates you.
-EAST, You see something you've been looking for, the KEY to the bathroom is on the kitchen table
+NORTH, You see something you've been looking for, the KEY to the bathroom is on the kitchen table.
+EAST, The kitchen counter is full of shit, dishwasher is on and the sound irritates you.
 SOUTH, You see your garden, the barbecue from last night must've been fun.
 WEST, Door is open and you see your dining room.
 NORTH, You see the exit door, you feel like you have to puke.
-EAST, A mirror, you look like shit.
+EAST, A mirror, you don't look good.
 SOUTH, The door to the dining room.
 WEST, You see one shoe on the floor.
-Special: Seems you did something stupid when you were drunk because the door is locked, you need to find the key.
+Seems you did something stupid when you were drunk because the door is locked, you need to find the key.

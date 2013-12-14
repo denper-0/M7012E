@@ -262,7 +262,7 @@ void Game::initLevel() {
 		rs,
 		new PlayerState(),
 		new RoomState(),
-		"Door is locked."
+		descText->getText(20)
 	);
 	currentRoom->setEvent(e);
 
@@ -292,7 +292,7 @@ void Game::printText(std::string str){
     std::cout << str[i];
     if((i + 1) < str.length() && str[i+1] != '\n')
       std::cout << char(219);
-    Sleep(50);
+    Sleep(40);
     if((i + 1) < str.length() && str[i+1] != '\n')
       std::cout << char(8);
   }

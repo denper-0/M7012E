@@ -1,24 +1,14 @@
-<<<<<<< HEAD
 Welcome to Leap Adventure! ; -Turn by swiping left or right ; -Go through doors by swiping hand forward ; -Open/Close inventory by swiping up/down ; -Cycle through inventory by circling finger either way ; -Pick up item by swiping down;;You just woke up, hangover as fuck. You're about to blow your souther region since you need to go to the toilet so bad.
-You just woke up, hungover as hello. You're about to pee in your pants.
-=======
-<<<<<<< HEAD
-You just woke up, hungover as hello. You're about to pee in your pants.
-=======
->>>>>>> 2880f2a95714b4519fc1bbfc063df967924439b1
-Welcome to Leap Adventure!\n -Turn by swiping left or right\n -Go through doors by swiping hand forward\n -Open/Close inventory by swiping up/down\n -Cycle through inventory by circling finger either way \n -Pick up item by swiping down You just woke up, hangover as fuck. You're about to blow your souther region since you need to go to the toilet so bad.
->>>>>>> e302aecc39f05133806daa6df7a86b56abfbb473
 LIVINGROOM
 DINING ROOM
 HAAAAALLWAY TO HELL!
 KITCHEN
 
-<<<<<<< HEAD
 Finally you found your way to the most valuable thing in your house.. THE TOILET! You can now finish your needs.
-=======
 
 
->>>>>>> 2880f2a95714b4519fc1bbfc063df967924439b1
+
+
 Start: You just woke up, hungover as fuck. You're about to blow your souther region so you need to get to the toilet fast.
 This livingroom looks like a mess, seems like you had a party here yesterday.
 So much dishes on the table.. looks like this is the dining room.

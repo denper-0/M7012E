@@ -225,12 +225,14 @@ void Game::initLevel() {
 	RoomState* rs2 = new RoomState();
 	rs->setItem(0, 1);
 	//rs2->getItemsToRemove();
-	rs2->setDesc(EAST, "no key here anymore. ");
+	rs2->setDesc(NORTH, "no key here anymore. ");
+	ps = new PlayerState();
+	ps->setItem(0,1);
 	e = new Event(
 		SWIPE_DOWN,
-		new PlayerState(EAST),
+		new PlayerState(NORTH),
 		rs,
-		new PlayerState(),
+		ps,
 		rs2,
 		"You picked up "+itemText->getText(1)
 	);
@@ -290,7 +292,7 @@ void Game::printText(std::string str){
     std::cout << str[i];
     if((i + 1) < str.length() && str[i+1] != '\n')
       std::cout << char(219);
-    Sleep(20);
+    Sleep(50);
     if((i + 1) < str.length() && str[i+1] != '\n')
       std::cout << char(8);
   }

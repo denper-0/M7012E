@@ -25,8 +25,9 @@ public:
 	virtual bool isEqual(State* s,State* s2); // must be implemented
 	void setCurrentToNextDirection(bool);
 	State* getState();
+	int getInventorySize();
 private:
-	std::vector<int> inventory;
+	
 	PlayerState* currentState;
 	int maxFacing;
 };

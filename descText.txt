@@ -7,7 +7,7 @@ EAST, There used to hang a door here, what happened?
 SOUTH, There's a lot of beer bottles on top of that piano. Seems like the trashcan is full too.
 WEST, You see your master bedroom.
 NORTH, It's the entrance to the hallway.
-EAST, You see a closed door.
+EAST, You see a closed door to the kitchen.
 SOUTH, There's so much broken glass on the floor over there.
 WEST, You see the livingroom through the open door.
 NORTH, You see something you've been looking for, the KEY to the bathroom is on the kitchen table.

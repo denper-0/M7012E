@@ -18,4 +18,4 @@ NORTH, You see the exit door, you feel like you have to puke.
 EAST, A mirror, you don't look good.
 SOUTH, The door to the dining room.
 WEST, You see one shoe on the floor.
-Seems you did something stupid when you were drunk because the door is locked, you need to find the key.
+The door is locked. 

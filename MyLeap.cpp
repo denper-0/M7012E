@@ -1,5 +1,8 @@
 #include "MyLeap.h"
 
+/**
+ * @breif constructor for the leap motion controller interface
+ */
 MyLeap::MyLeap(void)
 {
 	
@@ -10,6 +13,12 @@ MyLeap::MyLeap(void)
 	lastProcessedFrameID = 0;
 }
 
+/**
+ * @breif searches for first acurence of MyLeapAction in the past until we have searched there before. 
+ * @param float how far back in the past the searching goes
+ * @param vector<MyLeapAction> what actions we are searching for
+ * @return MyLeapAction what action was found
+ */
 MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionList)
 {
 	// if not connected
@@ -54,6 +63,12 @@ MyLeapAction MyLeap::getAction(float backMs, std::vector<MyLeapAction> actionLis
 }
 
 
+/**
+ * @breif processes the one frame in search of a action
+ * @param Frame we are search thought
+ * @param vector<MyLeapAction> what actions we are searching for
+ * @return MyLeapAction what action was found
+ */
 MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> actionList )
 {
     if( frame.id() == lastProcessedFrameID ) return NOTHING;
@@ -188,10 +203,19 @@ MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> 
 	return ret;
 }
 
+/**
+ * @breif checks if action is in adtionlist
+ * @param MyLeapAction single action we are seraching for
+ * @param vector<MyLeapAction> actions we are searching throught
+ * @return boolean success or failure
+ */
 bool MyLeap::actionIsInList(MyLeapAction action, std::vector<MyLeapAction> actionList) {
 	return std::find(actionList.begin(), actionList.end(), action) != actionList.end();
 }
 
+/**
+ * @breif descructor
+ */
 MyLeap::~MyLeap(void)
 {
 }

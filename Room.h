@@ -13,7 +13,9 @@
 class Player;
 class StateHolder;
 enum MyLeapAction;
-
+/**
+ * @breif a room that extends statholder i.e. holds the roomstate
+ */
 class Room : public StateHolder {
 	
 private:
@@ -27,7 +29,7 @@ public:
 	Room(int id);
 	~Room(void);
 /**
- @breif returns a room as a door in a roomstate at a certain direction
+ @breif set description of a rooms direction
  @param int dir is the direction facing in the room 
  @param string desc the description
  */
@@ -44,19 +46,19 @@ public:
  */
 	void setEvent(Event* e);
 /**
- @breif returns event on action
+ @breif gets  the events for a specific action
  @param int action an action that occured
  @return vector<Event*> returns vector with event connected to action
  */
 	std::vector<Event*> getEvents(int);
 /**
- @breif adds door
+ @breif set door for a direction
  @param int rd direction in the room
  @param Room* r the room that the door is going to lead to
  */
 	void setDoor(int, Room*);
 /**
- @breif returns the room the door is connected to
+ @breif returns the room the door is connected to for a direciton
  @param int dir is the direction facing in the room 
  @return Room* room the door is connected too 
  */
@@ -67,7 +69,7 @@ public:
  */
 	std::vector<MyLeapAction> getAllowedActions();
 /**
- @breif returns roomId
+ @breif gets roomId
  @return int the rooms id 
  */
 	int getRoomId();
@@ -91,9 +93,8 @@ public:
 	virtual bool isEqual(State* s, State* s2); // must be implemented
 
 /**
- @breif overwrites this room's state with given roomstate, NULL IGNORES
- @param State* s roomstate to overwrite with
- @param State* s2 the Playerstate to know facing 
+ @breif if the room is locked
+ @return int if the room is locked
  */	
 	int getRoomIsLocked();
 /**

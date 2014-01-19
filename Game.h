@@ -15,7 +15,9 @@
 #include "PlayerState.h"
 #include "RoomState.h"
 #include "Player.h"
-
+/**
+ *  @breif holds the level initization (change in future!) and the game loop
+ */
 class Game
 {
 public:

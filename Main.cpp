@@ -74,6 +74,7 @@ void Main::looper() {
 	}
 }
 */
+
 int main(void)
 {
 	Game g;

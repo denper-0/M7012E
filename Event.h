@@ -10,7 +10,9 @@ class RoomState;
 class PlayerState;
 class Room;
 enum MyLeapAction;
-
+/**
+ * @breif actions after the event is triggered
+ */
 enum OnEventAction {
 	ON_EVENT_NO_ACTION,
 	ON_EVENT_ITERATE_ITEMS_LEFT,
@@ -20,7 +22,9 @@ enum OnEventAction {
 	ON_EVENT_PRINT_CURRENT_ITEM,
 	ON_EVENT_PRINT_DIRECTION
 };
-
+/**
+ * @breif holds a action the game loop will trigger on combined with the current states the game loop will check with agains current room and player. Will finaly overwrite with the other tho states, give the events output and trigger actions. 
+ */
 class Event
 {
 private:

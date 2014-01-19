@@ -1,6 +1,9 @@
 #include "Game.h"
 
 
+/**
+ @breif constructor for the game
+ */
 Game::Game(void) {
 	generalText = new Gametext("generalText.txt");
 	descText = new Gametext("descText.txt");
@@ -8,11 +11,14 @@ Game::Game(void) {
 }
 
 
+/**
+ @breif descructor for the game
+ */
 Game::~Game(void) {
 
 }
 /**
- @breif add text event to left and right swipe
+ @breif add common text event to left and right swipe
  @param Room* r which room to add event too
  @param int option if event is connected to right or left swipe
  @param string text description output added to the event
@@ -102,7 +108,6 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 /**
  @breif creates the inventory and all it's functionalities
  @return Event* InventoryEvent event which moves the player to the "inventory room"/barelyEscapable
-
  */
 Event* Game::createInventory() {
 
@@ -307,7 +312,7 @@ void Game::initLevel() {
 	currentRoom->setDoor(SOUTH, goal); // no way back ^^
 }
 /**
- @breif prints out every character with a small delay and formats text
+ @breif prints out every character with a small delay, formats text and handles newline
  @param string str String to print out
  */
 void Game::printText(std::string str){
@@ -339,7 +344,9 @@ void Game::printText(std::string str){
   }
   std::cout << ' ' << char(8); 
 }
-
+/**
+ @breif starts the game loop that iterates 
+ */
 int Game::looper() {
 	MyLeapAction a;
 	Room* nextRoom;
@@ -365,7 +372,10 @@ int Game::looper() {
 		}
 	}
 }
-
+/**
+ * @breif method for the game loop to do a single iteration on a room. It also recursivly goes into a barelyEscapable room
+ * @return the room the player currently occupyes after the iteration or NULL if the player exited a barelyEscapable room. 
+ */
 Room* Game::runLoopOnRoom(Room *currentRoom) {
 	MyLeapAction a;
 	Room* nextRoom;

@@ -6,28 +6,18 @@ Player::Player(void) {
 }
 
 Player::~Player(void) {
-	//?? memoryleeekekekes?
+	
 }
-/**
- @breif returns facing of player
- @returns int facing of player 
- */
+
 int Player::getFacing() {
 	return currentState->getFacing();
 }
-/**
- @breif sets facing of player
- @param int f facing of player 
- */
+
 void Player::setFacing(int facing) {
 	this->currentState->setFacing(facing);
 }
 
-/**
- @breif overwrites this player's state with given playerstate, NULL IGNORES
- @param State* s playerstate to overwrite with
- @param State* s2 the Playerstate to know facing  (NOT USED)
- */
+
 void Player::overWrite(State* s, State* s2) {
 	PlayerState* ps = static_cast<PlayerState*>(s); // typecast
 	if(ps->getFacing() != 4) {
@@ -49,12 +39,7 @@ void Player::overWrite(State* s, State* s2) {
 		}
 	}
 }
-/**
- @breif checks if this player's state is equal to the given playerstate
- @param State* s playerstate to compare with
- @param State* s2 the Playerstate to know facing (NOT uSED)
- @return boolean if equal true ELSE false
- */
+
 bool Player::isEqual(State* s, State* s2) {
 	PlayerState* ps = static_cast<PlayerState*>(s); // typecast
 	if(currentState->getFacing() != ps->getFacing() && ps->getFacing() != 4) {
@@ -71,18 +56,12 @@ bool Player::isEqual(State* s, State* s2) {
 	return true;
 }
 
-/**
- @breif gets current state of the player
- @return State* currentState state of the player
- */
+
 State* Player::getState() {
 	return currentState;
 }
 
-/**
- @breif switches current item, if end of Inventory list or not
- @param bool iterateUp if it iterates up
- */
+
 
 void Player::setCurrentToNextItem(bool iterateUp) {
 	int itemId = currentState->getCurrentItemSelected();
@@ -109,10 +88,7 @@ void Player::setCurrentToNextItem(bool iterateUp) {
 	}
 }
 
-/**
- @breif changes direction of the players facing
- @param bool iterateUp if it iterates up
- */
+
 void Player::setCurrentToNextDirection(bool iterateUp) {
 	int facing = currentState->getFacing();
 	int maxFacing = currentState->getMaxFacing();
@@ -132,26 +108,16 @@ void Player::setCurrentToNextDirection(bool iterateUp) {
 	currentState->setFacing(facing);
 }
 
-/**
- @breif Add item to invetory
- @param int i where to put the item in inventory list
- @param int itemId what itemId to add to inventory
- */
+
 void Player::addToInventory(int i, int itemId) {
 	currentState->setItem(i,itemId);
 }
-/**
- @breif gets current item selected
- @return int current itemId selected
- */
+
 int Player::getCurrentItem() {
 	return currentState->getCurrentItemSelected();
 }
 
-/**
- @breif gets current size of invenotry 
- @return int size of intentory list
- */
+
 int Player::getInventorySize(){
 	return currentState->getItems().size();
 }

@@ -1,9 +1,7 @@
 #include "Game.h"
 
 
-/**
- @breif constructor for the game
- */
+
 Game::Game(void) {
 	generalText = new Gametext("generalText.txt");
 	descText = new Gametext("descText.txt");
@@ -11,18 +9,11 @@ Game::Game(void) {
 }
 
 
-/**
- @breif descructor for the game
- */
+
 Game::~Game(void) {
 
 }
-/**
- @breif add common text event to left and right swipe
- @param Room* r which room to add event too
- @param int option if event is connected to right or left swipe
- @param string text description output added to the event
- */
+
 void Game::decorateRoom(Room *r, int option, std::string text) {
 	Event* e;
 	switch(option) {
@@ -56,12 +47,7 @@ void Game::decorateRoom(Room *r, int option, std::string text) {
 		break;
 	}
 }
-/**
- @breif add event to a door
- @param Room* r which room to add event too
- @param int direction which door in the room to connect event to
- @param string output text output when event is trigger on door
- */
+
 void Game::setEventOnDoor(Room* r, int direction, std::string output) {
 	Event* e;
 	e = new Event(
@@ -76,12 +62,7 @@ void Game::setEventOnDoor(Room* r, int direction, std::string output) {
 	r->setEvent(e);
 }
 
-/**
- @breif connects rooms to each other so they can be travelled between
- @param Room* r1 room connects with room r2
- @param Room* r2 room connects to room r1
- @param int firstroomsDirectionn which door/direction in room r1 leads to room r2
- */
+
 void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 	if(firstRoomsDirection == NORTH) {
 		setEventOnDoor(r1, NORTH, "");
@@ -105,10 +86,7 @@ void Game::connectRooms(Room *r1, Room *r2, int firstRoomsDirection) {
 		r2->setDoor(EAST, r1);
 	}
 }
-/**
- @breif creates the inventory and all it's functionalities
- @return Event* InventoryEvent event which moves the player to the "inventory room"/barelyEscapable
- */
+
 Event* Game::createInventory() {
 
 	// create inventory "room"
@@ -166,9 +144,7 @@ Event* Game::createInventory() {
 }
 
 
-/**
- @breif creates and connects all the rooms and adds descriptions to rooms and it's directions
- */
+
 void Game::initLevel() {
 	
 	Event* InventoryEvent  = Game::createInventory();
@@ -311,10 +287,7 @@ void Game::initLevel() {
 	currentRoom->setEvent(e);
 	currentRoom->setDoor(SOUTH, goal); // no way back ^^
 }
-/**
- @breif prints out every character with a small delay, formats text and handles newline
- @param string str String to print out
- */
+
 void Game::printText(std::string str){
 	str = str+"\n";
 	//cout << string(50, '\n');
@@ -344,9 +317,7 @@ void Game::printText(std::string str){
   }
   std::cout << ' ' << char(8); 
 }
-/**
- @breif starts the game loop that iterates 
- */
+
 int Game::looper() {
 	MyLeapAction a;
 	Room* nextRoom;
@@ -372,10 +343,7 @@ int Game::looper() {
 		}
 	}
 }
-/**
- * @breif method for the game loop to do a single iteration on a room. It also recursivly goes into a barelyEscapable room
- * @return the room the player currently occupyes after the iteration or NULL if the player exited a barelyEscapable room. 
- */
+
 Room* Game::runLoopOnRoom(Room *currentRoom) {
 	MyLeapAction a;
 	Room* nextRoom;

@@ -9,6 +9,9 @@
 class Main
 {
 public:
+	/**
+ * @breif initiates game
+ */
 	Main(void);
 	~Main(void);
 };

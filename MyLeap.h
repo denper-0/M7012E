@@ -67,13 +67,38 @@ enum MyLeapAction {
 class MyLeap
 {
 public:
-	MyLeap(void);
-	~MyLeap(void);
-	MyLeapAction getAction(float backMs, std::vector<MyLeapAction> actionList);
-private:
-	bool actionIsInList(MyLeapAction action, std::vector<MyLeapAction> actionList);
 	int64_t lastProcessedFrameID;
 	Leap::Controller controller;
+
+/**
+ * @breif constructor for the leap motion controller interface
+ */
+	MyLeap(void);
+/**
+ * @breif descructor
+ */
+	~MyLeap(void);
+/**
+ * @breif searches for first acurence of MyLeapAction in the past until we have searched there before. 
+ * @param float how far back in the past the searching goes
+ * @param vector<MyLeapAction> what actions we are searching for
+ * @return MyLeapAction what action was found
+ */
+	MyLeapAction getAction(float backMs, std::vector<MyLeapAction> actionList);
+private:
+/**
+ * @breif checks if action is in adtionlist
+ * @param MyLeapAction single action we are seraching for
+ * @param vector<MyLeapAction> actions we are searching throught
+ * @return boolean success or failure
+ */
+	bool actionIsInList(MyLeapAction action, std::vector<MyLeapAction> actionList);
+/**
+ * @breif processes the one frame in search of a action
+ * @param Frame we are search thought
+ * @param vector<MyLeapAction> what actions we are searching for
+ * @return MyLeapAction what action was found
+ */
 	MyLeapAction MyLeap::processFrame( Leap::Frame frame, std::vector<MyLeapAction> actionList );
 };
 

@@ -8,6 +8,8 @@
 
 
 /*
+random notes for the future: 
+
 open door:
  grep+pull or grep+push
 
@@ -44,9 +46,11 @@ screen taps
 key taps
 no movement, but hand is visable
 NOTHING = nothing is visable
-
-
 */
+
+/**
+ * @breif actions implemented in the leap motion object
+ */
 enum MyLeapAction {
 	SWIPE_RIGHT,
 	SWIPE_LEFT,
@@ -64,6 +68,9 @@ enum MyLeapAction {
 	PALM_UP
 };
 
+/**
+ * @breif interface for the leap motion controller that detects actions. 
+ */
 class MyLeap
 {
 public:

@@ -4,7 +4,9 @@
 #include <iostream>
 #include <fstream>
 //using namespace std;
-
+/**
+ *  @breif holds text lines associated with their id's a.k.a. the line from the text file. starting with 0. 
+ */
 class Gametext
 {
 public:

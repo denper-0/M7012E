@@ -80,8 +80,8 @@ State* Player::getState() {
 }
 
 /**
- @breif switches current item
- @param bool iterateUp boolean if end of Inventory list or not
+ @breif switches current item, if end of Inventory list or not
+ @param bool iterateUp if it iterates up
  */
 
 void Player::setCurrentToNextItem(bool iterateUp) {
@@ -110,8 +110,8 @@ void Player::setCurrentToNextItem(bool iterateUp) {
 }
 
 /**
- @breif changes direction the players facing
- @param bool iterateUp boolean if end of direction list or not
+ @breif changes direction of the players facing
+ @param bool iterateUp if it iterates up
  */
 void Player::setCurrentToNextDirection(bool iterateUp) {
 	int facing = currentState->getFacing();

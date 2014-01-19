@@ -9,6 +9,9 @@
 #include <algorithm>
 class State;
 
+/**
+ * @breif player object that holds its properties in its playerstate. 
+ */
 class Player : public StateHolder
 {
 private:

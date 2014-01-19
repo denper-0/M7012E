@@ -6,6 +6,9 @@
 #include "State.h"
 
 
+/**
+ * @breif playerstate holds all proprtys for the player object so it easely can be compered and overwritten. 
+ */
 class PlayerState : public State
 {
 private: 

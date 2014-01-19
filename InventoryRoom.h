@@ -1,6 +1,9 @@
 #pragma once
 #include "Room.h"
 
+/**
+ * depriped!
+ */
 class InventoryRoom : Room
 {
 public:

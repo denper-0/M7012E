@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 
-// abstract class ment for a state that can be fetched to StateHolder. 
+/**
+ * @breif abstract class ment for a state that can be fetched to StateHolder for easy comperison and overwrites. 
+ */
 class State
 {
 protected:
